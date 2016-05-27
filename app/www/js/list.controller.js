@@ -4,7 +4,7 @@ angular.module('starter.controllers')
         $scope.shouldShowDelete = false;
         $scope.shouldShowReorder = false;
         $scope.listCanSwipe = true;
-        $rootScope.team = null;
+        $rootScope.teamName = null;
         $scope.items = [
             'Movies',
             'Geography',
@@ -14,7 +14,9 @@ angular.module('starter.controllers')
         $scope.func = function (item) {
           sendFromTeam.TeamChosen(item)
             .then(function successCallback(response) {
-                $rootScope.team = response.data.Team.TeamName;
+                $rootScope.teamName = response.data.Team.TeamName;
+                $rootScope.userPictureSource = 'http://gotag.azurewebsites.net/' + response.data.AvatarPath;
+                $rootScope.teamPictureSource = 'http://gotag.azurewebsites.net/' + response.data.Team.TeamPicturePath;
                 console.log($rootScope.team);
                 $state.go('map');
               }, function errorCallback(response) {
