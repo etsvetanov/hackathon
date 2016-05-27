@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoTag", "GoTag\GoTag.csproj", "{FA7A5AAB-13F5-46C5-9C4A-3B02003852CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{C6446BC4-7C33-41BE-896E-1C0E3101900D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{ED34A3ED-3ED2-4ECB-96B0-05D9A51F21D3}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{C87BD933-3B47-4A3E-8C4D-938064E8C22B}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Templates\GoTag.json = PublishScripts\Templates\GoTag.json
+		PublishScripts\Templates\GoTag.param.dev.json = PublishScripts\Templates\GoTag.param.dev.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA7A5AAB-13F5-46C5-9C4A-3B02003852CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA7A5AAB-13F5-46C5-9C4A-3B02003852CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA7A5AAB-13F5-46C5-9C4A-3B02003852CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA7A5AAB-13F5-46C5-9C4A-3B02003852CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED34A3ED-3ED2-4ECB-96B0-05D9A51F21D3} = {C6446BC4-7C33-41BE-896E-1C0E3101900D}
+		{C87BD933-3B47-4A3E-8C4D-938064E8C22B} = {C6446BC4-7C33-41BE-896E-1C0E3101900D}
+	EndGlobalSection
+EndGlobal

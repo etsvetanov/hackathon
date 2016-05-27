@@ -1,5 +1,9 @@
 angular.module('starter.controllers', [])
 
+.controller('StartCtrl', function($scope, $state) {
+  $state.go('login');
+})
+
 .controller('MapCtrl', function($scope, $ionicLoading) {
   $scope.mapCreated = function(map) {
     $scope.map = map;
