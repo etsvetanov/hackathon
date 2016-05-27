@@ -1,7 +1,7 @@
 
 angular.module('starter.controllers')
 .factory('sendFromLogin', function($http) {
-  var loginUrl = '';
+  var loginUrl = 'http://gotag.azurewebsites.net/api/createUniqueUser';
   var self = this,
       thingsThatareNotExposed = {},
       service = {};
@@ -14,7 +14,7 @@ angular.module('starter.controllers')
     $http({
       method: 'POST',
       url: loginUrl,
-      data: username
+      params: { requestedUsername: username }
     }).then(function successCallback(response) {
         result = response;
         console.log('successful');
