@@ -1,18 +1,17 @@
 (function () {
-   'use strict';
-
-  angular.module('starter')
-    .config(['$stateProvider', config]);
-  function config($stateProvider) {
-       $stateProvider
-         .state('main', {
-               url: '/'
-           })
-           .state('login', {
-                 url: '/login',
-                 controller: 'LoginCtrl',
-                 templateUrl: '../templates/login.html'
-             });
-  }
-
+    'use strict';
+    
+    angular.module('starter')
+        .config(function($stateProvider) {
+            $stateProvider
+                .state('main', {
+                    url: '/',
+                    controller: 'StartCtrl'
+                })
+                .state('map', {
+                    url: '/map',
+                    templateUrl: 'templates/map.html',
+                    controller: 'MapCtrl'
+                });
+        });
 }());
