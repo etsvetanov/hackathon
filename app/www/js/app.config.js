@@ -1,6 +1,6 @@
 (function () {
-   'use strict';
-
+    'use strict';
+    
     angular.module('starter')
         .config(function($stateProvider) {
             $stateProvider
@@ -14,4 +14,4 @@
                     controller: 'MapCtrl'
                 });
         });
-}());   
+}());
