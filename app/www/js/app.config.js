@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    
+
     angular.module('starter')
         .config(function($stateProvider) {
             $stateProvider
@@ -12,6 +12,11 @@
                     url: '/map',
                     templateUrl: 'templates/map.html',
                     controller: 'MapCtrl'
+                })
+                .state('login', {
+                    url: '/login',
+                    templateUrl: 'templates/login.html',
+                    controller: 'LoginCtrl'
                 });
         });
 }());
