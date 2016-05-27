@@ -36,6 +36,16 @@
       <h1 class="title">Map</h1>
       <!--<div ng-controller="DoesNothing"></div>-->
     </ion-header-bar>
+    <ion-view ng-controller="LoginCtrl" view-title="Login" name="login-view" >
+      <ion-content class="padding">
+          <div class="list list-inset">
+              <label class="item item-input">
+                  <input type="text" placeholder="Username" ng-model="username">
+              </label>
+          </div>
+          <button class="button button-block button-calm" ng-click="login()">Login</button>
+      </ion-content>
+    </ion-view>
     <!--<ion-nav-buttons side="left">
       <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>-->

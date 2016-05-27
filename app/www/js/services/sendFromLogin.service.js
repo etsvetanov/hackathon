@@ -1,6 +1,6 @@
 
 angular.module('starter.controllers')
-.factory('sendFromLogin', function() {
+.factory('sendFromLogin', function($http) {
   var loginUrl = '';
   var self = this,
       thingsThatareNotExposed = {},
@@ -16,9 +16,10 @@ angular.module('starter.controllers')
       url: loginUrl,
       data: username
     }).then(function successCallback(response) {
-        result = response
+        result = response;
+        console.log('successful');
       }, function errorCallback(response) {
-        console.log('smthn failed miserably';)
+        console.log('smthn failed miserably');
     });
 
     return result;
