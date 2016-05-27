@@ -1,6 +1,7 @@
 
 angular.module('starter.controllers')
 .factory('sendFromLogin', function() {
+  var loginUrl = '';
   var self = this,
       thingsThatareNotExposed = {},
       service = {};
@@ -10,14 +11,14 @@ angular.module('starter.controllers')
 
   function login(username){
     var result = null;
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: { username: username },
-      success: function(response) {
-        result = response;
-      },
-      dataType: dataType
+    $http({
+      method: 'POST',
+      url: loginUrl,
+      data: username
+    }).then(function successCallback(response) {
+        result = response
+      }, function errorCallback(response) {
+        console.log('smthn failed miserably';)
     });
 
     return result;
