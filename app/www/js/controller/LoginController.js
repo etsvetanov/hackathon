@@ -12,6 +12,5 @@ angular.module('starter.controllers')
         }, function errorCallback(response) {
           console.log('smthn failed miserably');
       });;
-
   }
 });
