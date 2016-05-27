@@ -10,19 +10,11 @@ angular.module('starter.controllers')
   service.Login = login;
 
   function login(username){
-    var result = null;
-    $http({
+    return $http({
       method: 'POST',
       url: loginUrl,
       params: { requestedUsername: username }
-    }).then(function successCallback(response) {
-        result = response;
-        console.log('successful');
-      }, function errorCallback(response) {
-        console.log('smthn failed miserably');
     });
-
-    return result;
   }
 
   function getData(nothing) {
