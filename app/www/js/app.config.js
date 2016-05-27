@@ -17,6 +17,11 @@
                     url: '/login',
                     templateUrl: 'templates/login.html',
                     controller: 'LoginCtrl'
+                })
+                .state('teams', {
+                    url: '/teams',
+                    templateUrl: 'templates/teamlist.html',
+                    controller: 'ListCtrl'
                 });
         });
 }());
