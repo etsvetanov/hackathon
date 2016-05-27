@@ -4,3 +4,7 @@
 .lock-*
 app/platforms/android/cordova/node_modules/lodash/index.js
 app/platforms/
+
+
+#log shit
+app/npm-debug.log
