@@ -5,7 +5,8 @@ angular.module('starter.directives', [])
     restrict: 'E',
     scope: {
       onCreate: '&',
-      onMyClick: '&'
+      onMyClick: '&',
+      markedLocation: '=',
     },
     link: function ($scope, $element, $attr) {
       function initialize() {
@@ -18,6 +19,7 @@ angular.module('starter.directives', [])
         var map = new google.maps.Map($element[0], mapOptions);
         $scope.map = map;
         $scope.onCreate({map: map});
+        
         // Stop the side bar from dragging when mousedown/tapdown on the map
         google.maps.event.addDomListener($element[0], 'mousedown', function (e) {
           e.preventDefault();

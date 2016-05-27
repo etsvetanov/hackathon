@@ -5,7 +5,7 @@ angular.module('starter.controllers', [])
     $scope.map = map;
   };
 
-  $scope.circles = [];
+  $scope.circledLocations = [];
 
   $scope.centerOnMe = function () {
     console.log("Centering");
