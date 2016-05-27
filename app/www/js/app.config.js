@@ -16,5 +16,4 @@
          })
          .otherwise({ redirectTo: '/partial1' });
   }
-
 }());
