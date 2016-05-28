@@ -36,52 +36,43 @@
         <h2 class="team-score" data-team="3">Score:</h2>
     </div>
 </div>
-
-
---------------- signal r stuff
-    <title>SignalR Simple Chat</title>
-    <style type="text/css">
-        .container {
-            background-color: #99CCFF;
-            border: thick solid #808080;
-            padding: 20px;
-            margin: 20px;
-        }
-    </style>
-    <div class="container">
-        <input type="text" id="message" />
-        <input type="button" id="sendmessage" value="Send" />
-        <input type="hidden" id="displayname" />
-        <ul id="discussion"></ul>
-    </div>
- 
+ <input id="startEvent" value="Start event" type="button" class="button-lg button-success"/> 
+<span id="eventStartsIn"></span>
 @section Scripts {
    <script type="text/javascript">
             $(function () {
                 // Declare a proxy to reference the hub.
-                var chat = $.connection.goTagSignalRHub;
+                var hub = $.connection.goTagSignalRHub;
                 // Create a function that the hub can call to broadcast messages.
-                chat.client.broadcastMessage = function (name, message) {
-                    // Html encode display name and message.
-                    var encodedName = $('<div />').text(name).html();
-                    var encodedMsg = $('<div />').text(message).html();
-                    // Add the message to the page.
-                    $('#discussion').append('<li><strong>' + encodedName
-                        + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+                hub.client.newCorrectAnswer = function (user) {
+                    var user = JSON.parse(user);
+                    alert(user.Username);
                 };
-                // Get the user name and store it to prepend to messages.
-                $('#displayname').val(prompt('Enter your name:', ''));
-                // Set initial focus to message input box.
-                $('#message').focus();
-                // Start the connection.
+                
+                hub.client.eventStartCountDown = function () {
+                    alert("Event starts in 30 seconds. Get ready!");
+                }
+
+                hub.client.eventStartCountDownUpdate = function (secondsLeft) {
+                    console.log("Seconds left: " + secondsLeft);
+                    $("#eventStartsIn").text("Event starts in: " + secondsLeft);
+                    if (secondsLeft == 0)
+                    {
+                        $("#eventStartsIn").text("");
+                    }
+                }
+
+                hub.client.startEvent = function () {
+                    console.log("Event started!");
+                }
+
                 $.connection.hub.start().done(function () {
-                    $('#sendmessage').click(function () {
-                        // Call the Send method on the hub.
-                        chat.server.send($('#displayname').val(), $('#message').val());
-                        // Clear text box and reset focus for next comment.
-                        $('#message').val('').focus();
+                    $('#startEvent').click(function () {
+                        hub.server.callStartEvent();
                     });
                 });
+
+
             });
 </script>
 }

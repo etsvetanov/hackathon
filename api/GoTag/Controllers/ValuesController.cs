@@ -1,5 +1,7 @@
 ﻿using GoTag.Data;
 using GoTag.Models;
+using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,9 +50,9 @@ namespace GoTag.Controllers
         {
             UserModel newUser = UserModel.CreateUserByUserName(requestedUsername);
 
-            string yourJson = new JavaScriptSerializer().Serialize(newUser);
+            string newUserJson = JsonConvert.SerializeObject(newUser);
             var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(yourJson, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(newUserJson, Encoding.UTF8, "application/json");
             return response;
         }
 
@@ -73,12 +75,25 @@ namespace GoTag.Controllers
             //dummyUser.Team.TeamCategoryName = "Movies";
             //dummyUser.Team.TeamName = "Stormtroopers pee straight";
             //dummyUser.Team.TeamPicturePath = @"\Assets\Pictures\TeamAvatar\MoviesLogo.png";
-
-            string yourJson = new JavaScriptSerializer().Serialize(updatedUser);
+            string userJson = JsonConvert.SerializeObject(updatedUser);
             var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(yourJson, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(userJson, Encoding.UTF8, "application/json");
             return response;
         }
 
+        [HttpPost]
+        [Route("api/addCorrectAnswer")]
+        public HttpResponseMessage AddCorrectAnswer()
+        {
+            //TODO FOR MITKO: increment user score, send the data to the event page (leader board)
+            //UserModel user = //get user somehow
+            //user.Score++; //save this in the "db"
+
+            var hub = GlobalHost.ConnectionManager.GetHubContext<GoTagSignalRHub>();
+            var userJson = JsonConvert.SerializeObject(new UserModel { Username = "Test" });
+            hub.Clients.All.newCorrectAnswer(userJson);
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            return response; //if status is not OK the client should send again.
+        }
     }
 }
