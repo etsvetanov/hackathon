@@ -19,11 +19,7 @@ angular.module('starter.controllers')
 
           return array;
         }
-        $scope.checkedObj = {
-          "checkedA" : false,
-          "checkedB" : false,
-          "checkedC" : false
-        }
+        $scope.checked = null;
         $scope.enableNext = false;
         $scope.choiceCorrect = false;
         $scope.disabledAll = false;
@@ -56,11 +52,7 @@ angular.module('starter.controllers')
           $timeout(function(){
             $scope.disabledAll = false;
             $scope.choice = false;
-            $scope.checkedObj = {
-              "checkedA" : false,
-              "checkedB" : false,
-              "checkedC" : false
-            }
+            $scope.checked = null;
             $scope.currentQuestion = $scope.questions[$scope.currentQuestionIndex + 1];
             angular.element($scope.elWithCorrectAnswer).removeClass('blncColor');
             angular.element($scope.targetedElement).removeClass('assertColor');
@@ -70,48 +62,14 @@ angular.module('starter.controllers')
         }
 
         $scope.prepareAnswer = function ($event, answer) {
+          if ($scope.checked == answer) {
+            $scope.checked = null;
+          }
+          else {
+            $scope.checked = answer;
+          }
+
           $scope.targetedElement = $event.currentTarget;
-          if (answer == 'Qa' && $scope.lastChoice != answer) {
-            $scope.checkedObj = {
-              "checkedA" : true,
-              "checkedB" : false,
-              "checkedC" : false
-            }
-          }else if(answer == 'Qa' && $scope.lastChoice == answer) {
-            $scope.checkedObj = {
-              "checkedA" : false,
-              "checkedB" : false,
-              "checkedC" : false
-            }
-          }
-
-          if (answer == 'Qb' && $scope.lastChoice != answer) {
-            $scope.checkedObj = {
-              "checkedA" : false,
-              "checkedB" : true,
-              "checkedC" : false
-            }
-          } else if(answer == 'Qb' && $scope.lastChoice == answer) {
-            $scope.checkedObj = {
-              "checkedA" : false,
-              "checkedB" : false,
-              "checkedC" : false
-            }
-          }
-
-          if (answer == 'Qc' && $scope.lastChoice != answer) {
-            $scope.checkedObj = {
-              "checkedA" : false,
-              "checkedB" : false,
-              "checkedC" : true
-            }
-          } else if(answer == 'Qc' && $scope.lastChoice == answer) {
-            $scope.checkedObj = {
-              "checkedA" : false,
-              "checkedB" : false,
-              "checkedC" : false
-            }
-          }
 
           if ($scope.currentQuestion.Qr == answer) {
             $scope.choiceCorrect = true;
@@ -121,21 +79,10 @@ angular.module('starter.controllers')
             $scope.choiceCorrect = false;
           }
 
-          if ($scope.checkedObj.checkedA == false &&
-            $scope.checkedObj.checkedB == false &&
-            $scope.checkedObj.checkedC == false) {
+          if (!$scope.checked) {
               $scope.enableNext = false;
           } else {
             $scope.enableNext = true;
-          }
-
-          if ($scope.lastChoiceOccurence == 1) {
-            $scope.lastChoice = answer;
-            $scope.lastChoiceOccurence++;
-          }
-          else {
-            $scope.lastChoice = null;
-            $scope.lastChoiceOccurence = 1;
           }
         }
 
