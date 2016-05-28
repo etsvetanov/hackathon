@@ -28,6 +28,7 @@ angular.module('starter.controllers')
         $scope.choiceCorrect = false;
         $scope.disabledAll = false;
         $scope.elWithCorrectAnswer = null;
+        $scope.targetedElement  = null;
         $scope.originalQuestions = [];
         $scope.questions = [];
         angular.copy(Questions, $scope.questions);
@@ -47,6 +48,9 @@ angular.module('starter.controllers')
             $scope.disabledAll = true;
             angular.element($scope.elWithCorrectAnswer).addClass('blncColor');
           }
+          else {
+            angular.element($scope.targetedElement).addClass('assertColor');
+          }
           $timeout(function(){
             $scope.disabledAll = false;
             $scope.choice = false;
@@ -57,11 +61,14 @@ angular.module('starter.controllers')
             }
             $scope.currentQuestion = $scope.questions[$scope.currentQuestionIndex + 1];
             angular.element($scope.elWithCorrectAnswer).removeClass('blncColor');
+            angular.element($scope.targetedElement).removeClass('assertColor');
             $scope.elWithCorrectAnswer = null;
-          }, 2000);
+            $scope.targetedElement = null;
+          }, 150);
         }
 
         $scope.prepareAnswer = function ($event, answer) {
+          $scope.targetedElement = $event.currentTarget;
           $scope.choice = true;
           if (answer == 'Qa') {
             $scope.checkedObj = {
