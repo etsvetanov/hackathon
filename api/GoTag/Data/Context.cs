@@ -10,17 +10,23 @@ namespace GoTag.Data
 {
     public static class DBContext
     {
-        private static object _lockObject = new object();
+        private static object _lockPopAvatarT1 = new object();
+        private static object _lockPopAvatarT2 = new object();
+        private static object _lockPopAvatarT3 = new object();
+        private static object _lockNewUsersList = new object();
         private static List<UserModel> _usersList;
         public static List<UserModel> UsersList
         {
             get
             {
-                if (_usersList == null)
+                lock (_lockNewUsersList) //todo questionable
                 {
-                    _usersList = new List<UserModel>();
+                    if (_usersList == null)
+                    {
+                        _usersList = new List<UserModel>();
+                    }
+                    return _usersList;
                 }
-                return _usersList;
             }
         }
         
@@ -74,7 +80,7 @@ namespace GoTag.Data
         }
         public static string PopAvatarForTeam1()
         {
-            lock (_lockObject)
+            lock (_lockPopAvatarT1)
             {
                 string popedAvatarPath = Team1UserAvatarPaths.FirstOrDefault();
                 _team1UserAvatarPaths.Remove(popedAvatarPath);
@@ -96,7 +102,7 @@ namespace GoTag.Data
         }
         public static string PopAvatarForTeam2()
         {
-            lock (_lockObject)
+            lock (_lockPopAvatarT2)
             {
                 string popedAvatarPath = Team2UserAvatarPaths.FirstOrDefault();
                 _team2UserAvatarPaths.Remove(popedAvatarPath);
@@ -118,7 +124,7 @@ namespace GoTag.Data
         }
         public static string PopAvatarForTeam3()
         {
-            lock (_lockObject)
+            lock (_lockPopAvatarT3)
             {
                 string popedAvatarPath = Team3UserAvatarPaths.FirstOrDefault();
                 _team3UserAvatarPaths.Remove(popedAvatarPath);
