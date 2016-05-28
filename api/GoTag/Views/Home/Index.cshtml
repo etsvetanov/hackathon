@@ -71,16 +71,24 @@
           
             $("#stopEvent").click(function (e) {
                 stopEventInApi();
-                getEventResult(); //shuold post to api
-                showResult();
+                getEventResult(); 
             });
 
-            function showResult() {
-
+            function showResult(result) {
+                var qq = result;
             };
 
-            function calculateResult() {
-
+            function getEventResult() {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/getEventResult",
+                    success: function (result) {
+                        showResult(result);
+                    },
+                    error: function (result) {
+                        console.log("event result didnt work!");
+                    }
+                });
             };
 
             function stopEventInApi() {
