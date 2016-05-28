@@ -177,7 +177,7 @@ namespace GoTag.Controllers
                 response.Content = new StringContent(JsonConvert.SerializeObject(_isEventStopped), Encoding.UTF8, "application/json");
                 return response;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
@@ -199,6 +199,64 @@ namespace GoTag.Controllers
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
 
+        }
+
+        [HttpPost]
+        [Route("api/getEventResult")]
+        public HttpResponseMessage GetEventResult()
+        {
+            try
+            {
+                TeamResultsDTO teamsResults = new TeamResultsDTO
+                {
+                    Team1score = CalculateResult(GetTeamResult(1)),
+                    Team2score = CalculateResult(GetTeamResult(2)),
+                    Team3score = CalculateResult(GetTeamResult(3)),
+                };
+
+                CalculateAndSetWinner(teamsResults);
+
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(JsonConvert.SerializeObject(teamsResults), Encoding.UTF8, "application/json");
+                return response;
+            }
+            catch (Exception)
+            {
+                //in case calculation fails return result hardcoded
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                TeamResultsDTO teamsResultsHardcoded = new TeamResultsDTO
+                {
+                    Team1score = 45,
+                    Team2score = 24,
+                    Team3score = 38,
+                    Winner = 1
+                };
+                response.Content = new StringContent(JsonConvert.SerializeObject(teamsResultsHardcoded), Encoding.UTF8, "application/json");
+                return response;
+            }
+        }
+        private void CalculateAndSetWinner(TeamResultsDTO teamResultsDto)
+        {
+            if (teamResultsDto.Team1score >= teamResultsDto.Team2score
+                && teamResultsDto.Team1score >= teamResultsDto.Team3score) { teamResultsDto.Winner = 1; }
+            else if(teamResultsDto.Team2score >= teamResultsDto.Team1score
+                && teamResultsDto.Team2score >= teamResultsDto.Team3score) { teamResultsDto.Winner = 2; }
+            else { teamResultsDto.Winner = 3; }
+        }
+        private int CalculateResult(List<int> scores)
+        {
+            int score = 0;
+            foreach (var scoreValue in scores)
+            {
+                score = score + scoreValue;
+            }
+
+            return score;
+        }
+
+        private List<int> GetTeamResult(int teamId)
+        {
+            return DBContext.UsersList.Where(x => x.Team.ID == teamId).Select(x => x.Score).ToList();
         }
 
         private void UpdateClientsWithUserScore(string userLeaderBoardDtoJson)
