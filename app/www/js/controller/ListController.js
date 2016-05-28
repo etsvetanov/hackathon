@@ -17,8 +17,8 @@ angular.module('starter.controllers')
             teamsService.joinTeam(id)
             .then(function successCallback(response) {
                 $rootScope.teamName = response.data.Team.TeamName;
-                $rootScope.userPictureSource = 'http://gotag.azurewebsites.net/' + response.data.AvatarPath;
-                $rootScope.teamPictureSource = 'http://gotag.azurewebsites.net/' + response.data.Team.TeamPicturePath;
+                $rootScope.userPictureSource = 'http://gotagapi.azurewebsites.net/' + response.data.AvatarPath;
+                $rootScope.teamPictureSource = 'http://gotagapi.azurewebsites.net/' + response.data.Team.TeamPicturePath;
                 console.log($rootScope.team);
                 $state.go('map');
             }, function errorCallback(response) {

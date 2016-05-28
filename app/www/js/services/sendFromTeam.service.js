@@ -1,7 +1,7 @@
 
 angular.module('starter.controllers')
 .factory('sendFromTeam', function($http) {
-  var teamApiUrl = 'http://gotag.azurewebsites.net/api/selectTeam';
+    var teamApiUrl = 'http://gotagapi.azurewebsites.net/api/selectTeam';
   var self = this,
       thingsThatareNotExposed = {},
       service = {};

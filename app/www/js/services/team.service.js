@@ -8,7 +8,7 @@ angular.module('starter.controllers')
         function joinTeam(id) {
             return $http({
                 method: 'POST',
-                url: 'http://gotag.azurewebsites.net/api/selectTeam',
+                url: 'http://gotagapi.azurewebsites.net/api/selectTeam',
                 params: { teamId: id }
             });
         }
