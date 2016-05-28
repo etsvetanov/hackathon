@@ -1,5 +1,5 @@
 <ion-content class="padding">
-    <div class="list card">
+    <!--<div class="list card">-->
 
         <!--<div class="item item-avatar">-->
             <!--<img src="userImg">-->
@@ -7,17 +7,17 @@
             <!--<p>November 05, 1955</p>-->
         <!--</div>-->
 
-        <div class="item item-body">
+        <!--<div class="item item-body">-->
             <p>
-                Question description.
+                {{ questions[0].Qt }}
             </p>
             <p>
-                <ion-list class="list-inset">
-                    <ion-radio ng-model="choice" class="item" ng-value="'A'">Answer</ion-radio>
-                    <ion-radio ng-model="choice" class="item" ng-value="'B'">Answer</ion-radio>
-                    <ion-radio ng-model="choice" class="item" ng-value="'C'">Answer</ion-radio>
+                <ion-list">
+                    <ion-radio ng-model="choice" ng-value="'A'"> {{ questions[0].Qa }} </ion-radio>
+                    <ion-radio ng-model="choice" ng-value="'B'"> {{ questions[0].Qb }} </ion-radio>
+                    <ion-radio ng-model="choice" ng-value="'C'"> {{ questions[0].Qc }} </ion-radio>
                 </ion-list>
                 <button class="button button-block button-balanced" ng-click="next()">Next Question</button>
             </p>
-        </div>
+        <!--</div>-->
 </ion-content>
