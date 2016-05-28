@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
-    
-    .controller('ListCtrl', function ($scope, $rootScope, sendFromTeam, $state) {
+
+    .controller('ListCtrl', function ($scope, $rootScope, $state, teamsService) {
 
         $scope.shouldShowDelete = false;
         $scope.shouldShowReorder = false;
@@ -11,7 +11,7 @@ angular.module('starter.controllers')
             {name: 'Programming', id: '2'},
             {name: 'Gaming', id: '3'}
         ];
-        
+
         $scope.chooseTeam = function (id) {
 
             teamsService.joinTeam(id)
