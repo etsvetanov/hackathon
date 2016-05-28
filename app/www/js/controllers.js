@@ -29,7 +29,7 @@ angular.module('starter.controllers', [])
             google.maps.event.addListenerOnce(map, 'zoom_changed', function (event) {
                 animateMapZoomTo(map, targetZoom, currentZoom + (targetZoom > currentZoom ? 1 : -1));
             });
-        setTimeout(function(){ map.setZoom(currentZoom) }, 350);
+        setTimeout(function(){ map.setZoom(currentZoom) }, 128);
         }
       }
 
