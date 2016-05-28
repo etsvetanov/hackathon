@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Web;
 using System.Web.Http;
 using System.Web.Script.Serialization;
 //using System.Web.Mvc;
@@ -48,52 +50,93 @@ namespace GoTag.Controllers
         [Route("api/createUniqueUser")]
         public HttpResponseMessage CreateUniqueUser(string requestedUsername)
         {
-            UserModel newUser = UserModel.CreateUserByUserName(requestedUsername);
+            try
+            {
+                UserModel newUser = UserModel.CreateUserByUserName(requestedUsername);
 
-            string newUserJson = JsonConvert.SerializeObject(newUser);
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(newUserJson, Encoding.UTF8, "application/json");
-            return response;
+                HttpCookie userIdentityCookie = new HttpCookie("UserIdentityCookie");
+                userIdentityCookie.Expires = DateTime.Now.AddDays(1);
+                userIdentityCookie.Value = newUser.Guid.ToString();
+                HttpContext.Current.Response.Cookies.Add(userIdentityCookie);
+
+                string newUserJson = JsonConvert.SerializeObject(newUser);
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(newUserJson, Encoding.UTF8, "application/json");
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+            
         }
 
         [HttpPost]
         [Route("api/selectTeam")]
         public HttpResponseMessage SelectTeam(int teamId)
         {
-            //todo extract guid from cookie here
+            try
+            {
+                var userIdentityCookie = HttpContext.Current.Request.Cookies.Get("UserIdentityCookie");
 
-            Guid userGuid = DBContext.UsersList.Select(s => s.Guid).FirstOrDefault();
-            UserModel updatedUser = UserModel.SelectTeamForUser(userGuid, teamId);
+                Guid userGuid;
+                if (userIdentityCookie != null)
+                {
+                    userGuid = Guid.Parse(userIdentityCookie.Value);
+                }
+                else
+                {
+                    //todo are we sure this is the logic we want to execute
+                    userGuid = DBContext.UsersList.Select(s => s.Guid).FirstOrDefault();
+                }
 
-            //UserModel dummyUser = new UserModel();
-            //dummyUser.Guid = Guid.NewGuid();
-            //dummyUser.Username = "DummyUserName1";
-            //dummyUser.AvatarPath = @"\Assets\Pictures\UserAvatarPictures\MovieAvatars\YodaAvatar.jpg";
-            //dummyUser.Team = new TeamModel();
-            //dummyUser.Team.ID = 1;
-            //dummyUser.Team.TeamCategoryId = 1;
-            //dummyUser.Team.TeamCategoryName = "Movies";
-            //dummyUser.Team.TeamName = "Stormtroopers pee straight";
-            //dummyUser.Team.TeamPicturePath = @"\Assets\Pictures\TeamAvatar\MoviesLogo.png";
-            string userJson = JsonConvert.SerializeObject(updatedUser);
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(userJson, Encoding.UTF8, "application/json");
-            return response;
+                UserModel updatedUser = UserModel.SelectTeamForUser(userGuid, teamId);
+
+                string userJson = JsonConvert.SerializeObject(updatedUser);
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(userJson, Encoding.UTF8, "application/json");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpPost]
-        [Route("api/addCorrectAnswer")]
+        [Route("api/incrementUserScore")]
         public HttpResponseMessage AddCorrectAnswer()
         {
-            //TODO FOR MITKO: increment user score, send the data to the event page (leader board)
-            //UserModel user = //get user somehow
-            //user.Score++; //save this in the "db"
+            try
+            {
+                var userIdentityCookie = HttpContext.Current.Request.Cookies.Get("UserIdentityCookie");
 
-            var hub = GlobalHost.ConnectionManager.GetHubContext<GoTagSignalRHub>();
-            var userJson = JsonConvert.SerializeObject(new UserModel { Username = "Test" });
-            hub.Clients.All.newCorrectAnswer(userJson);
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            return response; //if status is not OK the client should send again.
+                Guid userGuid;
+                if (userIdentityCookie != null)
+                {
+                    userGuid = Guid.Parse(userIdentityCookie.Value);
+                }
+                else
+                {
+                    //todo are we sure this is the logic we want to execute
+                    userGuid = DBContext.UsersList.Select(s => s.Guid).FirstOrDefault();
+                }
+
+                UserModel userFromDB = UserModel.IncrementUserScoreByGuid(userGuid);
+                var userJson = JsonConvert.SerializeObject(userFromDB);
+
+                var hub = GlobalHost.ConnectionManager.GetHubContext<GoTagSignalRHub>();
+                hub.Clients.All.newCorrectAnswer(userJson);
+
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(userJson, Encoding.UTF8, "application/json");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
     }
 }
