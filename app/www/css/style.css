@@ -5,8 +5,13 @@ map {
   width: 100%;
   height: 100%;
 }
+
 .scroll {
   height: 100%;
+}
+
+.scroll-content {
+  overflow: auto;
 }
 
 .nearest-event {
@@ -79,6 +84,7 @@ map {
 
 .login-container {
   border-left: none !important;
+  text-align: center;
 }
 
 .login-container input {
@@ -101,4 +107,12 @@ map {
 .answer {
   position: relative !important;
   bottom: 0 !important;
+}
+
+.blncColor {
+  background-color: #33CD5F!important;
+}
+
+.assertColor {
+  background-color: #EF473A!important;
 }

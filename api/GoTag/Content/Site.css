@@ -15,3 +15,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.purple {
+    background: #673ab7;
+}
+
+.no-border {
+    border: none;
+}
