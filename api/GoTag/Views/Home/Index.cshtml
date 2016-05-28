@@ -36,3 +36,45 @@
         <h2 class="team-score" data-team="3">Score:</h2>
     </div>
 </div>
+ <input id="startEvent" value="Start event" type="button" class="button-lg button-success"/> 
+<span id="eventStartsIn"></span>
+@section Scripts {
+   <script type="text/javascript">
+            $(function () {
+                // Declare a proxy to reference the hub.
+                var hub = $.connection.goTagSignalRHub;
+                // Create a function that the hub can call to broadcast messages.
+                hub.client.newCorrectAnswer = function (user) {
+                    var user = JSON.parse(user);
+                    alert(user.Username);
+                };
+                
+                hub.client.eventStartCountDown = function () {
+                    alert("Event starts in 30 seconds. Get ready!");
+                }
+
+                hub.client.eventStartCountDownUpdate = function (secondsLeft) {
+                    console.log("Seconds left: " + secondsLeft);
+                    $("#eventStartsIn").text("Event starts in: " + secondsLeft);
+                    if (secondsLeft == 0)
+                    {
+                        $("#eventStartsIn").text("");
+                    }
+                }
+
+                hub.client.startEvent = function () {
+                    console.log("Event started!");
+                }
+
+                $.connection.hub.start().done(function () {
+                    $('#startEvent').click(function () {
+                        hub.server.callStartEvent();
+                    });
+                });
+
+
+            });
+</script>
+}
+    <!--Add script to update the page and send messages.-->
+    

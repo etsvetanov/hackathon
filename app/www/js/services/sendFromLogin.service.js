@@ -1,7 +1,7 @@
 
 angular.module('starter.controllers')
 .factory('sendFromLogin', function($http) {
-  var loginApiUrl = 'http://gotag.azurewebsites.net/api/createUniqueUser';
+  var loginApiUrl = 'http://gotagapi.azurewebsites.net/api/createUniqueUser';
   var self = this,
       service = {};
   service.Login = login;
