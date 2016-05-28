@@ -12,7 +12,7 @@ angular.module('starter.controllers')
     return $http({
       method: 'POST',
       url: teamApiUrl,
-      params: { teamName: teamName }
+      params: { teamName: 1 }
     });
   }
 
