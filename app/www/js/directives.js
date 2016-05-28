@@ -1,5 +1,16 @@
 angular.module('starter.directives', [])
-
+.directive('myIonClick', function () {
+  return {
+    restrict: 'A',
+    replace: false,
+    link: function ($scope, $el) {
+      $el.css({'pointer-events': 'all'});
+      $el.bind('click', function () {
+        $scope.$parent.checkmark($el);
+      });
+    }
+  };
+})
 .directive('map', function() {
   return {
     restrict: 'E',
@@ -47,7 +58,7 @@ angular.module('starter.directives', [])
         setTimeout(function(){ map.setZoom(currentZoom) }, 80);
         }
       }
-      
+
       //mistake island
       //44.4751188, -67.5354019
       $scope.ready = function() {

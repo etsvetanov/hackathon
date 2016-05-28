@@ -61,6 +61,10 @@ angular.module('starter.controllers')
           }, 150);
         }
 
+        $scope.checkmark = function($el) {
+          $el.find('input').triggerHandler('click');
+        }
+
         $scope.prepareAnswer = function ($event, answer) {
           if ($scope.checked == answer) {
             $scope.checked = null;
