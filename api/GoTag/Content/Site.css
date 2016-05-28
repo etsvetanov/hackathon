@@ -16,6 +16,10 @@ textarea {
     max-width: 280px;
 }
 
-.top-navbar {
-    
+.purple {
+    background: #673ab7;
+}
+
+.no-border {
+    border: none;
 }
