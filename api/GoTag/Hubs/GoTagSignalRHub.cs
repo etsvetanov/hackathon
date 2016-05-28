@@ -7,7 +7,6 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace GoTag
 {
-    [HubName("GoTagSignalRHub")]
     public class GoTagSignalRHub : Hub
     {
         public void Send(string name, string message)
