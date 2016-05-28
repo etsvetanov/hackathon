@@ -1,23 +1,11 @@
 <ion-content class="padding">
-    <!--<div class="list card">-->
-
-        <!--<div class="item item-avatar">-->
-            <!--<img src="userImg">-->
-            <!--<h2> {{ username }}</h2>-->
-            <!--<p>November 05, 1955</p>-->
-        <!--</div>-->
-
-        <!--<div class="item item-body">-->
-            <p>
-                {{ currentQuestion.Qt }}
-            </p>
-            <p>
-                <div>
-                    <ion-radio ng-model="choice" ng-value="'Qa'"> {{ currentQuestion.Qa }} </ion-radio>
-                    <ion-radio ng-model="choice" ng-value="'Qb'"> {{ currentQuestion.Qb }} </ion-radio>
-                    <ion-radio ng-model="choice" ng-value="'Qc'"> {{ currentQuestion.Qc }} </ion-radio>
-                </div>
-            </p>
-            <button class="button button-block button-balanced" ng-disabled="!choice" ng-click="getNextQuestion()">Next Question</button>
-        <!--</div>-->
+    <div>
+        {{ currentQuestion.Qt }}
+    </div>
+    <div class="list">
+        <ion-checkbox ng-value="'Qa'" ng-checked="checkedObj.checkedA" ng-click="prepareAnswer($event, 'Qa')" ng-disabled="disabledAll"> {{ currentQuestion.Qa }} </ion-checkbox>
+        <ion-checkbox ng-value="'Qb'" ng-checked="checkedObj.checkedB" ng-click="prepareAnswer($event, 'Qb')" ng-disabled="disabledAll"> {{ currentQuestion.Qb }} </ion-checkbox>
+        <ion-checkbox ng-value="'Qc'" ng-checked="checkedObj.checkedC" ng-click="prepareAnswer($event, 'Qc')" ng-disabled="disabledAll"> {{ currentQuestion.Qc }} </ion-checkbox>
+    </div>
+    <button class="button button-block button-royal" ng-disabled="!choice" ng-click="getNextQuestion()">Answer</button>
 </ion-content>

@@ -108,3 +108,11 @@ map {
   position: relative !important;
   bottom: 0 !important;
 }
+
+.blncColor {
+  background-color: #33CD5F!important;
+}
+
+.assertColor {
+  background-color: #EF473A!important;
+}
