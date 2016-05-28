@@ -1,9 +1,9 @@
 ﻿var LeaderBoard = (function () {
-
+    var self;
     function appendNewRow(userData) {
         var rowTemplate = $(".template");
-        var cloneRow = rowTemplate.cloneNode(true); // copy children too
-        self.table.appendChild(clone);
+        var cloneRow = rowTemplate.clone(true); // copy children too
+        self.table.append(cloneRow);
         var newRow = $(cloneRow);
         newRow.removeClass("hidden");
         newRow.removeClass("template");
@@ -14,7 +14,7 @@
 
     function addOrUpdateRow(userData) {
         var rowForUpdate = self.table.find('[data-guid="' + userData.Guid + '"]');
-        if (rowForUpdate) {
+        if (rowForUpdate.length!=0) {
             //
             updateTdsInRow(rowForUpdate, userData);
         }
@@ -26,12 +26,19 @@
 
     function updateTdsInRow(row, userData) {
         for (var prop in userData) {
-            newRow.find('[data-prop="' + prop + '"]').text(userData[prop]);
+            var td = row.find('[data-prop="' + prop + '"]');
+            if (prop != "AvatarPath") {
+            td.text(userData[prop]);
+            }
+            else {
+                var img = td.find("img");
+                img.attr("src", userData[prop]);
+            }
         }
     };
     return {
         init: function(tableId) {
-            var self = this;
+            self = this;
             self.table = $("#" + tableId);
         },
         addOrUpdateUserScore(userData) {

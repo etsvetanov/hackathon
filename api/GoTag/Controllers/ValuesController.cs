@@ -124,13 +124,20 @@ namespace GoTag.Controllers
                 }
 
                 UserModel userFromDB = UserModel.IncrementUserScoreByGuid(userGuid);
-                var userJson = JsonConvert.SerializeObject(userFromDB);
+                var userDtoJson = JsonConvert.SerializeObject(
+                                                            new UserLeaderBoardDTO {
+                                                                Guid = userFromDB.Guid.ToString(),
+                                                                AvatarPath = userFromDB.AvatarPath,
+                                                                Username = userFromDB.Username,
+                                                                Teamname = userFromDB.Team.TeamName,
+                                                                Score = userFromDB.Score
+                                                            });
 
                 var hub = GlobalHost.ConnectionManager.GetHubContext<GoTagSignalRHub>();
-                hub.Clients.All.newCorrectAnswer(userJson);
+                hub.Clients.All.newCorrectAnswer(userDtoJson);
 
                 var response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StringContent(userJson, Encoding.UTF8, "application/json");
+                response.Content = new StringContent(userDtoJson, Encoding.UTF8, "application/json");
                 return response;
             }
             catch (Exception ex)
