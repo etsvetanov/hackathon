@@ -37,8 +37,27 @@
     </div>
 </div>
  <input id="startEvent" value="Start event" type="button" class="button-lg button-success"/> 
+
+<div class="row leaderBoardContainer"> 
+    <fieldset>
+        <legend>Leaderboard</legend>
+        <table id="leaderBoard" class="leaderBoard">
+            <thead>Top 15 players</thead>
+            <tr class="template hidden" data-guid="Guid">
+                <td class="avatar" data-prop="AvatarPath"></td>
+                <td class="username" data-prop="Username"></td>
+                <td class="team"  data-prop="Team"></td>
+                <td class="score"  data-prop="Score"></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+
 <span id="eventStartsIn"></span>
 @section Scripts {
+
+    <script src="~/Scripts/PageScripts/leaderBoard.js"></script>
+    @*----------signal r events*@
    <script type="text/javascript">
             $(function () {
                 // Declare a proxy to reference the hub.
@@ -71,10 +90,7 @@
                         hub.server.callStartEvent();
                     });
                 });
-
-
             });
 </script>
 }
-    <!--Add script to update the page and send messages.-->
     
