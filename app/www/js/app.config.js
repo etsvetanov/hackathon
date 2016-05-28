@@ -16,7 +16,6 @@
                         infoWindowContent: function ($http) {
                             return $http.get('/templates/infoWindow.html')
                                         .then(function () {
-                                            debugger;
                                             console.log(arguments);
                                         });
                         }
