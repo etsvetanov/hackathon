@@ -2,6 +2,7 @@
 using GoTag.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -55,20 +56,25 @@ namespace GoTag.Controllers
 
         [HttpPost]
         [Route("api/selectTeam")]
-        public HttpResponseMessage SelectTeam(string teamName)
+        public HttpResponseMessage SelectTeam(int teamId)
         {
-            UserModel dummyUser = new UserModel();
-            dummyUser.Guid = Guid.NewGuid();
-            dummyUser.Username = "DummyUserName1";
-            dummyUser.AvatarPath = @"\Assets\Pictures\UserAvatarPictures\MovieAvatars\YodaAvatar.jpg";
-            dummyUser.Team = new TeamModel();
-            dummyUser.Team.ID = 1;
-            dummyUser.Team.TeamCategoryId = 1;
-            dummyUser.Team.TeamCategoryName = "Movies";
-            dummyUser.Team.TeamName = "Stormtroopers pee straight";
-            dummyUser.Team.TeamPicturePath = @"\Assets\Pictures\TeamAvatar\MoviesLogo.png";
+            //extract guid from cookie here
 
-            string yourJson = new JavaScriptSerializer().Serialize(dummyUser);
+            Guid userGuid = DBContext.UsersList.Select(s => s.Guid).FirstOrDefault();
+            UserModel updatedUser = UserModel.SelectTeamForUser(userGuid, teamId);
+
+            //UserModel dummyUser = new UserModel();
+            //dummyUser.Guid = Guid.NewGuid();
+            //dummyUser.Username = "DummyUserName1";
+            //dummyUser.AvatarPath = @"\Assets\Pictures\UserAvatarPictures\MovieAvatars\YodaAvatar.jpg";
+            //dummyUser.Team = new TeamModel();
+            //dummyUser.Team.ID = 1;
+            //dummyUser.Team.TeamCategoryId = 1;
+            //dummyUser.Team.TeamCategoryName = "Movies";
+            //dummyUser.Team.TeamName = "Stormtroopers pee straight";
+            //dummyUser.Team.TeamPicturePath = @"\Assets\Pictures\TeamAvatar\MoviesLogo.png";
+
+            string yourJson = new JavaScriptSerializer().Serialize(updatedUser);
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(yourJson, Encoding.UTF8, "application/json");
             return response;
