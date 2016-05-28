@@ -70,10 +70,21 @@
         infoWindow.close();
       } else {
         infoWindow.open($scope.map, hiddenMarker);
+        google.maps.event.addListener(infoWindow, 'domready', onInfoWindowOpened);
       }
 
 
       hiddenMarker.setVisible(false);
+    }
+
+    function onInfoWindowOpened() {
+      var $infoWindow = angular.element(document.querySelector('#infoWindow'));
+
+      angular.element(document.querySelector('#infoWindow .join-event-button')).bind('click', joinEvent);
+    }
+
+    function joinEvent() {
+      console.log('event joined');
     }
 
     function createEventInfoWindow(content) {
