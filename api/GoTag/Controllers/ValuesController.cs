@@ -69,7 +69,7 @@ namespace GoTag.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
-            
+
         }
 
         [HttpPost]
@@ -92,6 +92,10 @@ namespace GoTag.Controllers
                 }
 
                 UserModel updatedUser = UserModel.SelectTeamForUser(userGuid, teamId);
+
+                //add user in leaderboard with 0 score
+                string userLeaderboardDto = MapUserToUserLeaderBoardDTO(updatedUser);
+                UpdateClientsWithUserScore(userLeaderboardDto);
 
                 string userJson = JsonConvert.SerializeObject(updatedUser);
                 var response = Request.CreateResponse(HttpStatusCode.OK);
@@ -124,19 +128,37 @@ namespace GoTag.Controllers
                 }
 
                 UserModel userFromDB = UserModel.IncrementUserScoreByGuid(userGuid);
-                var userJson = JsonConvert.SerializeObject(userFromDB);
+                var userDtoJson = MapUserToUserLeaderBoardDTO(userFromDB);
 
-                var hub = GlobalHost.ConnectionManager.GetHubContext<GoTagSignalRHub>();
-                hub.Clients.All.newCorrectAnswer(userJson);
+                //addOrUpdate user in leaderdashboard
+                UpdateClientsWithUserScore(userDtoJson);
 
                 var response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StringContent(userJson, Encoding.UTF8, "application/json");
+                response.Content = new StringContent(userDtoJson, Encoding.UTF8, "application/json");
                 return response;
             }
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
+        }
+
+        private void UpdateClientsWithUserScore(string userLeaderBoardDtoJson)
+        {
+            var hub = GlobalHost.ConnectionManager.GetHubContext<GoTagSignalRHub>();
+            hub.Clients.All.newCorrectAnswer(userLeaderBoardDtoJson);
+        }
+
+        private string MapUserToUserLeaderBoardDTO(UserModel userFromDB)
+        {
+            return JsonConvert.SerializeObject(new UserLeaderBoardDTO
+                                                            {
+                                                                Guid = userFromDB.Guid.ToString(),
+                                                                AvatarPath = userFromDB.AvatarPath,
+                                                                Username = userFromDB.Username,
+                                                                Teamname = userFromDB.Team.TeamName,
+                                                                Score = userFromDB.Score
+                                                            });
         }
     }
 }

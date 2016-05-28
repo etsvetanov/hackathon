@@ -9,15 +9,15 @@
 
         <!--<div class="item item-body">-->
             <p>
-                {{ questions[0].Qt }}
+                {{ currentQuestion.Qt }}
             </p>
             <p>
-                <ion-list">
-                    <ion-radio ng-model="choice" ng-value="'A'"> {{ questions[0].Qa }} </ion-radio>
-                    <ion-radio ng-model="choice" ng-value="'B'"> {{ questions[0].Qb }} </ion-radio>
-                    <ion-radio ng-model="choice" ng-value="'C'"> {{ questions[0].Qc }} </ion-radio>
-                </ion-list>
+                <div>
+                    <ion-radio ng-model="choice" ng-value="'Qa'"> {{ currentQuestion.Qa }} </ion-radio>
+                    <ion-radio ng-model="choice" ng-value="'Qb'"> {{ currentQuestion.Qb }} </ion-radio>
+                    <ion-radio ng-model="choice" ng-value="'Qc'"> {{ currentQuestion.Qc }} </ion-radio>
+                </div>
             </p>
-            <button class="button button-block button-royal answer" ng-click="next()">Answer</button>
+            <button class="button button-block button-balanced" ng-disabled="!choice" ng-click="getNextQuestion()">Next Question</button>
         <!--</div>-->
 </ion-content>
