@@ -1,4 +1,5 @@
-﻿using GoTag.Data;
+﻿using GoTag.Assets;
+using GoTag.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,13 +53,24 @@ namespace GoTag.Models
 
             if (userFromDB != null)
             {
-                if (userFromDB.Team.ID == 1) //todo dont like magic numbers
+                if (teamId == StaticResournces.Team1ID) 
                 {
-                    userFromDB.AvatarPath = DBContext.PopMovieAvatar();
+                    userFromDB.AvatarPath = DBContext.PopAvatarForTeam1();
                     userFromDB.Team = DBContext.GetTeamByID(teamId);
                 }
+                else if (teamId == StaticResournces.Team2ID)
+                {
+                    userFromDB.AvatarPath = DBContext.PopAvatarForTeam3();
+                    userFromDB.Team = DBContext.GetTeamByID(teamId);
+                }
+                else if (teamId == StaticResournces.Team3ID)
+                {
+                    userFromDB.AvatarPath = DBContext.PopAvatarForTeam2();
+                    userFromDB.Team = DBContext.GetTeamByID(teamId);
+                }
+                //todo what happens if teamId doesnt match?
             }
-
+            //todo what happens if no user is found doesnt match?
             return userFromDB;
         }
     }
