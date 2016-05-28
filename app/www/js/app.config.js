@@ -32,8 +32,9 @@
                     controller: 'ListCtrl'
                 })
                 .state('quizQuestion', {
-                  url: '/quiz-question',
-                  templateUrl: 'templates/quiz-question.html'
+                    url: '/quiz-question',
+                    templateUrl: 'templates/quiz-question.html',
+                    controller: 'QuizQuestionCtrl'
                 });
 
             $urlRouterProvider.otherwise('/');
