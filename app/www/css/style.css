@@ -10,7 +10,7 @@ map {
 }
 
 .nearest-event {
-  position: absolute;
+  position: absolute !important;
   bottom: 0;
   left: 0;
 }
