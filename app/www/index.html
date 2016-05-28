@@ -39,9 +39,11 @@
   </head>
 
   <body ng-app="starter">
-    <ion-header-bar class="bar-stable" style="height:60px;">
+    <ion-header-bar id="app-head" class="bar-stable">
       <h1 class="title">{{username}}</h1>
-      <img class="pull-right" src="{{userPictureSource}}" style="width:50px;height:50px;" ng-show="userPictureSource"/>
+      <div id="avatar" class="pull-right">
+        <img ng-src="{{userPictureSource}}" ng-show="userPictureSource"/>
+      </div>
     </ion-header-bar>
     <ion-content scroll="false">
       <ion-nav-view></ion-nav-view>

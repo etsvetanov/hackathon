@@ -11,8 +11,8 @@ namespace GoTag.Models
     {
         public Guid Guid { get; set; }
         public string Username { get; set; }
-        public TeamModel Team { get; set; }
         public string AvatarPath { get; set; }
+        public TeamModel Team { get; set; }
 
         public static UserModel GetUserByGUID (Guid userGuid)
         {
@@ -26,7 +26,7 @@ namespace GoTag.Models
             {
                 if (DBContext.UserNameAlreadyExists(modifiedUsername))
                 {
-                    modifiedUsername = requestedUsername + "_" + i;
+                    modifiedUsername = requestedUsername + "#" + i;
                 }
                 else
                 {
@@ -46,9 +46,20 @@ namespace GoTag.Models
             return newUser;
         }
 
-        //public static UserModel SelectTeamForUser(Guid userGuid,string teamName)
-        //{
-        //    UserModel userFromDB = GetUserByGUID(userGuid);
-        //}
+        public static UserModel SelectTeamForUser(Guid userGuid, int teamId)
+        {
+            UserModel userFromDB = GetUserByGUID(userGuid);
+
+            if (userFromDB != null)
+            {
+                if (userFromDB.Team.ID == 1) //todo dont like magic numbers
+                {
+                    userFromDB.AvatarPath = DBContext.PopMovieAvatar();
+                    userFromDB.Team = DBContext.GetTeamByID(teamId);
+                }
+            }
+
+            return userFromDB;
+        }
     }
 }
