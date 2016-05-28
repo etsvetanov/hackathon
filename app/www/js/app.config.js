@@ -35,10 +35,15 @@
                     url: '/quiz-question',
                     templateUrl: 'templates/quiz-question.html',
                     controller: 'QuizQuestionCtrl'
+                })
+                .state('awaitEvent', {
+                    url: '/await-event',
+                    templateUrl: 'templates/await-event.html',
+                    controller: 'AwaitEventCtrl'
                 });
 
             $urlRouterProvider.otherwise('/');
-            
+
             $httpProvider.interceptors.push('httpErrorResponseRetry');
         });
 }());
