@@ -31,6 +31,8 @@ angular.module('starter.controllers')
         $scope.targetedElement  = null;
         $scope.originalQuestions = [];
         $scope.questions = [];
+        $scope.lastChoice = null;
+        $scope.lastChoiceOccurence = 1;
         angular.copy(Questions, $scope.questions);
         angular.copy(Questions, $scope.originalQuestions);
         shuffle($scope.questions);
@@ -69,23 +71,45 @@ angular.module('starter.controllers')
 
         $scope.prepareAnswer = function ($event, answer) {
           $scope.targetedElement = $event.currentTarget;
-          if (answer == 'Qa') {
+          if (answer == 'Qa' && $scope.lastChoice != answer) {
             $scope.checkedObj = {
               "checkedA" : true,
               "checkedB" : false,
               "checkedC" : false
             }
-          }else if (answer == 'Qb') {
+          }else if(answer == 'Qa' && $scope.lastChoice == answer) {
+            $scope.checkedObj = {
+              "checkedA" : false,
+              "checkedB" : false,
+              "checkedC" : false
+            }
+          }
+
+          if (answer == 'Qb' && $scope.lastChoice != answer) {
             $scope.checkedObj = {
               "checkedA" : false,
               "checkedB" : true,
               "checkedC" : false
             }
-          }else if (answer == 'Qc') {
+          } else if(answer == 'Qb' && $scope.lastChoice == answer) {
+            $scope.checkedObj = {
+              "checkedA" : false,
+              "checkedB" : false,
+              "checkedC" : false
+            }
+          }
+
+          if (answer == 'Qc' && $scope.lastChoice != answer) {
             $scope.checkedObj = {
               "checkedA" : false,
               "checkedB" : false,
               "checkedC" : true
+            }
+          } else if(answer == 'Qc' && $scope.lastChoice == answer) {
+            $scope.checkedObj = {
+              "checkedA" : false,
+              "checkedB" : false,
+              "checkedC" : false
             }
           }
 
@@ -97,10 +121,21 @@ angular.module('starter.controllers')
             $scope.choiceCorrect = false;
           }
 
-          if (false) {
-
+          if ($scope.checkedObj.checkedA == false &&
+            $scope.checkedObj.checkedB == false &&
+            $scope.checkedObj.checkedC == false) {
+              $scope.enableNext = false;
           } else {
             $scope.enableNext = true;
+          }
+
+          if ($scope.lastChoiceOccurence == 1) {
+            $scope.lastChoice = answer;
+            $scope.lastChoiceOccurence++;
+          }
+          else {
+            $scope.lastChoice = null;
+            $scope.lastChoiceOccurence = 1;
           }
         }
 
