@@ -14,6 +14,7 @@ namespace GoTag.Models
         public string Username { get; set; }
         public string AvatarPath { get; set; }
         public TeamModel Team { get; set; }
+        public int Score { get; set; }
 
         public static UserModel GetUserByGUID (Guid userGuid)
         {
@@ -41,6 +42,7 @@ namespace GoTag.Models
             newUser.Guid = Guid.NewGuid();
             newUser.Username = requestedUsername;
             newUser.Team = new TeamModel();
+            newUser.Score = 0;
 
             DBContext.AddNewUser(newUser);
 
@@ -71,6 +73,13 @@ namespace GoTag.Models
                 //todo what happens if teamId doesnt match?
             }
             //todo what happens if no user is found doesnt match?
+            return userFromDB;
+        }
+
+        public static UserModel IncrementUserScoreByGuid (Guid userGuid)
+        {
+            UserModel userFromDB = GetUserByGUID(userGuid);
+            userFromDB.Score++;
             return userFromDB;
         }
     }
