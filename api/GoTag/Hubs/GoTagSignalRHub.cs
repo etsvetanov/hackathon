@@ -25,7 +25,7 @@ namespace GoTag
                     Thread.Sleep(1000);
                     Clients.All.eventStartCountDownUpdate(i);
                 }
-                Clients.All.startEvent();
+                Clients.All.startEvent(120);
             }
         }
     }

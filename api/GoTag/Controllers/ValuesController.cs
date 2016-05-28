@@ -16,9 +16,11 @@ using System.Web.Script.Serialization;
 
 namespace GoTag.Controllers
 {
+
     //[Authorize]
     public class ValuesController : ApiController
     {
+        public static bool _isEventStopped = false;
         // GET api/values
         public IEnumerable<string> Get()
         {
@@ -114,33 +116,89 @@ namespace GoTag.Controllers
         {
             try
             {
-                var userIdentityCookie = HttpContext.Current.Request.Cookies.Get("UserIdentityCookie");
-
-                Guid userGuid;
-                if (userIdentityCookie != null)
+                if (!_isEventStopped)
                 {
-                    userGuid = Guid.Parse(userIdentityCookie.Value);
+                    var userIdentityCookie = HttpContext.Current.Request.Cookies.Get("UserIdentityCookie");
+
+                    Guid userGuid;
+                    if (userIdentityCookie != null)
+                    {
+                        userGuid = Guid.Parse(userIdentityCookie.Value);
+                    }
+                    else
+                    {
+                        //todo are we sure this is the logic we want to execute
+                        userGuid = DBContext.UsersList.Select(s => s.Guid).FirstOrDefault();
+                    }
+
+                    UserModel userFromDB = UserModel.IncrementUserScoreByGuid(userGuid);
+                    var userDtoJson = MapUserToUserLeaderBoardDTO(userFromDB);
+
+                    //addOrUpdate user in leaderdashboard
+                    UpdateClientsWithUserScore(userDtoJson);
+
+                    var response = Request.CreateResponse(HttpStatusCode.OK);
+                    response.Content = new StringContent(userDtoJson, Encoding.UTF8, "application/json");
+                    return response;
                 }
                 else
                 {
-                    //todo are we sure this is the logic we want to execute
-                    userGuid = DBContext.UsersList.Select(s => s.Guid).FirstOrDefault();
+                    return Request.CreateResponse(HttpStatusCode.Forbidden);
                 }
-
-                UserModel userFromDB = UserModel.IncrementUserScoreByGuid(userGuid);
-                var userDtoJson = MapUserToUserLeaderBoardDTO(userFromDB);
-
-                //addOrUpdate user in leaderdashboard
-                UpdateClientsWithUserScore(userDtoJson);
-
-                var response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StringContent(userDtoJson, Encoding.UTF8, "application/json");
-                return response;
             }
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
+        }
+
+        [HttpPost]
+        [Route("api/stopEvent")]
+        public HttpResponseMessage StopEvent()
+        {
+            try
+            {
+                _isEventStopped = true;
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
+        }
+        [HttpPost]
+        [Route("api/isEventFinished")]
+        public HttpResponseMessage isEventFinished()
+        {
+            try
+            {
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(JsonConvert.SerializeObject(_isEventStopped), Encoding.UTF8, "application/json");
+                return response;
+            }
+            catch(Exception)
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
+
+        }
+
+        [HttpPost]
+        [Route("api/restartEvent")]
+        public HttpResponseMessage RestartEvent()
+        {
+            try
+            {
+                _isEventStopped = false;
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
+
         }
 
         private void UpdateClientsWithUserScore(string userLeaderBoardDtoJson)
@@ -152,13 +210,13 @@ namespace GoTag.Controllers
         private string MapUserToUserLeaderBoardDTO(UserModel userFromDB)
         {
             return JsonConvert.SerializeObject(new UserLeaderBoardDTO
-                                                            {
-                                                                Guid = userFromDB.Guid.ToString(),
-                                                                AvatarPath = userFromDB.AvatarPath,
-                                                                Username = userFromDB.Username,
-                                                                Teamname = userFromDB.Team.TeamName,
-                                                                Score = userFromDB.Score
-                                                            });
+            {
+                Guid = userFromDB.Guid.ToString(),
+                AvatarPath = userFromDB.AvatarPath,
+                Username = userFromDB.Username,
+                Teamname = userFromDB.Team.TeamName,
+                Score = userFromDB.Score
+            });
         }
     }
 }
