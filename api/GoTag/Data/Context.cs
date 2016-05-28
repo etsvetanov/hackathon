@@ -10,6 +10,7 @@ namespace GoTag.Data
 {
     public static class DBContext
     {
+        private static object _lockObject = new object();
         private static List<UserModel> _usersList;
         public static List<UserModel> UsersList
         {
@@ -38,8 +39,6 @@ namespace GoTag.Data
         {
             UsersList.Add(newLoginResult);
         }
-
-
 
         private static List<TeamModel> _teams;
         public static List<TeamModel> Teams
@@ -75,10 +74,12 @@ namespace GoTag.Data
         }
         public static string PopAvatarForTeam1()
         {
-            string popedAvatarPath = Team1UserAvatarPaths.FirstOrDefault();
-            _team1UserAvatarPaths.Remove(popedAvatarPath);
-
-            return popedAvatarPath;
+            lock (_lockObject)
+            {
+                string popedAvatarPath = Team1UserAvatarPaths.FirstOrDefault();
+                _team1UserAvatarPaths.Remove(popedAvatarPath);
+                return popedAvatarPath;
+            }
         }
 
         private static List<string> _team2UserAvatarPaths;
@@ -95,10 +96,12 @@ namespace GoTag.Data
         }
         public static string PopAvatarForTeam2()
         {
-            string popedAvatarPath = Team2UserAvatarPaths.FirstOrDefault();
-            _team2UserAvatarPaths.Remove(popedAvatarPath);
-
-            return popedAvatarPath;
+            lock (_lockObject)
+            {
+                string popedAvatarPath = Team2UserAvatarPaths.FirstOrDefault();
+                _team2UserAvatarPaths.Remove(popedAvatarPath);
+                return popedAvatarPath;
+            }
         }
 
         private static List<string> _team3UserAvatarPaths;
@@ -115,10 +118,12 @@ namespace GoTag.Data
         }
         public static string PopAvatarForTeam3()
         {
-            string popedAvatarPath = Team3UserAvatarPaths.FirstOrDefault();
-            _team3UserAvatarPaths.Remove(popedAvatarPath);
-
-            return popedAvatarPath;
+            lock (_lockObject)
+            {
+                string popedAvatarPath = Team3UserAvatarPaths.FirstOrDefault();
+                _team3UserAvatarPaths.Remove(popedAvatarPath);
+                return popedAvatarPath;
+            }
         }
 
 
