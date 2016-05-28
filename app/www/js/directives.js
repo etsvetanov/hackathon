@@ -37,6 +37,16 @@ angular.module('starter.directives', [])
     },
     controller: function($scope, drawing) {
 
+    function animateMapZoomTo(map, targetZoom) {
+        var currentZoom = map.getZoom();
+        if (currentZoom != targetZoom) {
+            google.maps.event.addListenerOnce(map, 'zoom_changed', function (event) {
+                animateMapZoomTo(map, targetZoom, currentZoom + (targetZoom > currentZoom ? 1 : -1));
+            });
+        setTimeout(function(){ map.setZoom(currentZoom) }, 80);
+        }
+      }
+
       function alertCircle(circle) { 
        console.log("clicked on circle with radius:" + circle.radius);
       }

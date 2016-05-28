@@ -9,6 +9,7 @@ angular.module('starter.controllers', [])
     $scope.map = map;
   };
 
+
   ///---marks FMI location with circle
   var initialLocation = {
     latitude: 42.6744756,
@@ -21,10 +22,21 @@ angular.module('starter.controllers', [])
   //  });
   $scope.markedLocations = [initialLocation,];
   ///^------end
+
+  function animateMapZoomTo(map, targetZoom) {
+        var currentZoom = arguments[2] || map.getZoom();
+        if (currentZoom != targetZoom) {
+            google.maps.event.addListenerOnce(map, 'zoom_changed', function (event) {
+                animateMapZoomTo(map, targetZoom, currentZoom + (targetZoom > currentZoom ? 1 : -1));
+            });
+        setTimeout(function(){ map.setZoom(currentZoom) }, 350);
+        }
+      }
+
   $scope.goToNearestEvent = function() {
-    $scope.map.setZoom(0);
+    $scope.map.setZoom(4);
     $scope.map.setCenter($scope.fmiLocation);
-    $scope.map.setZoom(16);
+    animateMapZoomTo($scope.map, 16);
   }
   $scope.centerOnMe = function () {
     console.log("Centering");

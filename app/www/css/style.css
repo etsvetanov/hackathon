@@ -18,6 +18,11 @@ map {
     display: block;
 }
 
+.center {
+  margin: 0 auto;
+  float: none;
+}
+
 #app-head {
   height: 60px;
   text-align: center;

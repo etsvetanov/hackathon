@@ -22,6 +22,10 @@
                     url: '/teams',
                     templateUrl: 'templates/teamlist.html',
                     controller: 'ListCtrl'
+                })
+                .state('quizQuestion', {
+                  url: '/quiz-question',
+                  templateUrl: 'templates/quiz-question.html'
                 });
 
             $httpProvider.interceptors.push('httpErrorResponseRetry');
