@@ -24,7 +24,7 @@ angular.module('starter.controllers')
           "checkedB" : false,
           "checkedC" : false
         }
-        $scope.choice = false;
+        $scope.enableNext = false;
         $scope.choiceCorrect = false;
         $scope.disabledAll = false;
         $scope.elWithCorrectAnswer = null;
@@ -69,7 +69,6 @@ angular.module('starter.controllers')
 
         $scope.prepareAnswer = function ($event, answer) {
           $scope.targetedElement = $event.currentTarget;
-          $scope.choice = true;
           if (answer == 'Qa') {
             $scope.checkedObj = {
               "checkedA" : true,
@@ -97,5 +96,23 @@ angular.module('starter.controllers')
           else {
             $scope.choiceCorrect = false;
           }
+
+          if (false) {
+
+          } else {
+            $scope.enableNext = true;
+          }
         }
+
+        var checkForEnd = function() {
+          sendFromQuizQuestions
+            .CheckForEndOfEvent()
+            .then(function successCallback(response) {
+                console.log(response);
+              }, function errorCallback(response) {
+                console.log('smthn failed miserably');
+            });
+        }
+
+        setInterval(checkForEnd, 10000);
     });

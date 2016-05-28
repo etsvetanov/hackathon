@@ -7,5 +7,5 @@
         <ion-checkbox ng-value="'Qb'" ng-checked="checkedObj.checkedB" ng-click="prepareAnswer($event, 'Qb')" ng-disabled="disabledAll"> {{ currentQuestion.Qb }} </ion-checkbox>
         <ion-checkbox ng-value="'Qc'" ng-checked="checkedObj.checkedC" ng-click="prepareAnswer($event, 'Qc')" ng-disabled="disabledAll"> {{ currentQuestion.Qc }} </ion-checkbox>
     </div>
-    <button class="button button-block button-royal" ng-disabled="!choice" ng-click="getNextQuestion()">Answer</button>
+    <button class="button button-block button-royal" ng-disabled="!enableNext" ng-click="getNextQuestion()">Answer</button>
 </ion-content>
