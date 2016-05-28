@@ -7,9 +7,9 @@ angular.module('starter.controllers')
         $scope.listCanSwipe = true;
         $rootScope.teamName = null;
         $scope.items = [
-            {name: 'Movies', id: '1'},
-            {name: 'Programming', id: '2'},
-            {name: 'Gaming', id: '3'}
+            {name: 'Stormpoopers', id: '1', category: 'Movies', logoPath: 'http://gotagapi.azurewebsites.net/Assets/Pictures/TeamAvatar/MoviesLogo.png'},
+            {name: '.NOT', id: '2', category: 'Programming', logoPath: 'http://gotagapi.azurewebsites.net/Assets/Pictures/TeamAvatar/ProgrammingLogo.jpg'},
+            {name: 'My wife for Aiur', id: '3', category: 'Gaming', logoPath: 'http://gotagapi.azurewebsites.net/Assets/Pictures/TeamAvatar/GamingLogo.png'}
         ];
         
         $scope.chooseTeam = function (id) {
