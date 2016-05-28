@@ -9,10 +9,10 @@ angular.module('starter.controllers')
   //location e.g.: 44.4751188, -67.5354019
   function drawCircle(map, latitude, longitude, radius) {
         var circle = new google.maps.Circle({
-                    strokeColor: '#FF0000',
+                    strokeColor: '#00BFFF',
                     strokeOpacity: 0.8,
                     strokeWeight: 2,
-                    fillColor: '#FF0000',
+                    fillColor: '#1E90FF',
                     fillOpacity: 0.35,
                     map: map,
                     center: new google.maps.LatLng(latitude, longitude),

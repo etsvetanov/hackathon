@@ -8,3 +8,9 @@ map {
 .scroll {
   height: 100%;
 }
+
+.nearest-event {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
