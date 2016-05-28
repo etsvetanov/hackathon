@@ -8,7 +8,7 @@ angular.module('starter.controllers')
       .then(function successCallback(response) {
           $rootScope.username = response.data.Username;
           console.log($rootScope.username);
-          $state.go('map');
+          $state.go('teams');
         }, function errorCallback(response) {
           console.log('smthn failed miserably');
       });;

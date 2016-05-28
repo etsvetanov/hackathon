@@ -14,3 +14,7 @@ map {
   bottom: 0;
   left: 0;
 }
+.pull-right {
+    margin-left: auto;
+    display: block;
+}
