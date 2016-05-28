@@ -79,6 +79,7 @@ map {
 
 .login-container {
   border-left: none !important;
+  text-align: center;
 }
 
 .login-container input {
