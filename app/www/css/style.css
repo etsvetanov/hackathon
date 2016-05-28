@@ -119,3 +119,14 @@ map {
 .assertColor {
   background-color: #EF473A!important;
 }
+
+.bounce {
+  -webkit-animation:bounce 1s infinite;
+}
+
+@-webkit-keyframes bounce {
+  0%       { bottom:40px; }
+  25%, 75% { bottom:45px; }
+  50%      { bottom:50px; }
+  100%     {bottom:50;}
+}
