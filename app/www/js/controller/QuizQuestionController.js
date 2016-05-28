@@ -32,6 +32,16 @@ angular.module('starter.controllers')
           el.id = i;
         })
         $scope.getNextQuestion =  function() {
+          if ($scope.currentQuestion.Qr == $scope.choice) {
+            $http({
+              method: 'POST',
+              url: 'http://gotagapi.azurewebsites.net/api/incrementUserScore',
+              params: { hi: "mn qk"}
+            });
+          }
+
+
+
           $scope.currentQuestion = $scope.questions[$scope.currentQuestionIndex + 1];
         }
 
