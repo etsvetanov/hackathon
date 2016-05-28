@@ -65,9 +65,9 @@ namespace GoTag.Data
         {
             get
             {
-                if (_movieUserAvatarPaths == null || _movieUserAvatarPaths.Count == 0)
+                if (_movieUserAvatarPaths == null || _movieUserAvatarPaths.Any())
                 {
-                    _movieUserAvatarPaths = FileService.GetFilePathsForFolder(HttpContext.Current.Server.MapPath(@"\Assets\Pictures\UserAvatarPictures\MovieAvatars\YodaAvatar.jpg"));
+                    _movieUserAvatarPaths = FileService.GetFilePathsForFolder(HttpContext.Current.Server.MapPath(@"\Assets\Pictures\UserAvatarPictures\MovieAvatars\"));
                 }
                 return _movieUserAvatarPaths;
             }
@@ -75,7 +75,7 @@ namespace GoTag.Data
 
         public static string PopMovieAvatar()
         {
-            string popedAvatarPath = _movieUserAvatarPaths.FirstOrDefault();
+            string popedAvatarPath = MovieUserAvatarPaths.FirstOrDefault();
             _movieUserAvatarPaths.Remove(popedAvatarPath);
 
             return popedAvatarPath;

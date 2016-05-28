@@ -52,7 +52,7 @@ namespace GoTag.Models
 
             if (userFromDB != null)
             {
-                if (userFromDB.Team.ID == 1) //todo dont like magic numbers
+                if (teamId == 1) //todo dont like magic numbers
                 {
                     userFromDB.AvatarPath = DBContext.PopMovieAvatar();
                     userFromDB.Team = DBContext.GetTeamByID(teamId);
