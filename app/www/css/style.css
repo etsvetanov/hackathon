@@ -95,3 +95,7 @@ map {
 .item-md-label input {
   background: initial !important;
 }
+
+.blncColor {
+  background-color: #33CD5F!important;
+}
