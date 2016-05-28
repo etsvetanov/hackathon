@@ -2,7 +2,7 @@
 (function () {
   angular.module('starter.controllers')
 
-  .controller('MapCtrl', function($scope, $state, $ionicLoading, infoWindowContent) {
+  .controller('MapCtrl', function($scope, $state, $ionicLoading, infoWindowContent, $rootScope) {
     var infoWindow;
 
     $scope.mapCreated = function(map) {
@@ -25,6 +25,7 @@
     ///^------end
 
     $scope.goToNearestEvent = function() {
+      $rootScope.arrow = false;
       $scope.map.setZoom(4);
       $scope.map.setCenter($scope.fmiLocation);
       animateMapZoomTo($scope.map, 16);

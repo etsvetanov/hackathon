@@ -7,7 +7,8 @@
         </div>
     </div>
     <div class="col-xs-12" data-toggle="notStarted">
-        <button id="startEvent" type="button" class="btn btn-danger">Start Event</button>
+        <button id="startEvent" type="button" class="btn btn-success">Start Event</button>
+        <button id="stopEvent" type="button" class="btn btn-danger">Stop Event</button>
     </div>
     <div class="col-xs-12" data-toggle="notStarted">
         <h2 id="eventStartsIn"></h2>
@@ -67,6 +68,33 @@
     <script type="text/javascript">
         $(document).ready(function () {
             LeaderBoard.init("leaderBoard");
+          
+            $("#stopEvent").click(function (e) {
+                stopEventInApi();
+                getEventResult(); //shuold post to api
+                showResult();
+            });
+
+            function showResult() {
+
+            };
+
+            function calculateResult() {
+
+            };
+
+            function stopEventInApi() {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/stopEvent",
+                    success: function (result) {
+                        console.log("succesfully stopped event!");
+                    },
+                    error: function (result) {
+                        console.log("event stop didnt work!");
+                    }
+                });
+            };
         });
     </script>
     @*----------signal r events*@
@@ -93,7 +121,7 @@
                 $("#eventStartsIn").text("Event starts in: " + secondsLeft);
             }
 
-            hub.client.startEvent = function () {
+            hub.client.startEvent = function (durationInSeconds) {
                 $elementsToShow = $('[data-toggle=started]');
 
                 $('[data-toggle=notStarted]').hide();
@@ -104,6 +132,18 @@
             $.connection.hub.start().done(function () {
                 $('#startEvent').click(function () {
                     hub.server.callStartEvent();
+                    
+                    //this is just in case (cuz we have static _isEventStopped in API)
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/restartEvent",
+                        success: function (result) {
+                            console.log("succesfully restarted event!");
+                        },
+                        error: function (result) {
+                            console.log("event restart didnt work!");
+                        }
+                    });
                 });
             });
         });

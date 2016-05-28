@@ -24,13 +24,15 @@ angular.module('starter.controllers')
           "checkedB" : false,
           "checkedC" : false
         }
-        $scope.choice = false;
+        $scope.enableNext = false;
         $scope.choiceCorrect = false;
         $scope.disabledAll = false;
         $scope.elWithCorrectAnswer = null;
         $scope.targetedElement  = null;
         $scope.originalQuestions = [];
         $scope.questions = [];
+        $scope.lastChoice = null;
+        $scope.lastChoiceOccurence = 1;
         angular.copy(Questions, $scope.questions);
         angular.copy(Questions, $scope.originalQuestions);
         shuffle($scope.questions);
@@ -69,24 +71,45 @@ angular.module('starter.controllers')
 
         $scope.prepareAnswer = function ($event, answer) {
           $scope.targetedElement = $event.currentTarget;
-          $scope.choice = true;
-          if (answer == 'Qa') {
+          if (answer == 'Qa' && $scope.lastChoice != answer) {
             $scope.checkedObj = {
               "checkedA" : true,
               "checkedB" : false,
               "checkedC" : false
             }
-          }else if (answer == 'Qb') {
+          }else if(answer == 'Qa' && $scope.lastChoice == answer) {
+            $scope.checkedObj = {
+              "checkedA" : false,
+              "checkedB" : false,
+              "checkedC" : false
+            }
+          }
+
+          if (answer == 'Qb' && $scope.lastChoice != answer) {
             $scope.checkedObj = {
               "checkedA" : false,
               "checkedB" : true,
               "checkedC" : false
             }
-          }else if (answer == 'Qc') {
+          } else if(answer == 'Qb' && $scope.lastChoice == answer) {
+            $scope.checkedObj = {
+              "checkedA" : false,
+              "checkedB" : false,
+              "checkedC" : false
+            }
+          }
+
+          if (answer == 'Qc' && $scope.lastChoice != answer) {
             $scope.checkedObj = {
               "checkedA" : false,
               "checkedB" : false,
               "checkedC" : true
+            }
+          } else if(answer == 'Qc' && $scope.lastChoice == answer) {
+            $scope.checkedObj = {
+              "checkedA" : false,
+              "checkedB" : false,
+              "checkedC" : false
             }
           }
 
@@ -97,5 +120,34 @@ angular.module('starter.controllers')
           else {
             $scope.choiceCorrect = false;
           }
+
+          if ($scope.checkedObj.checkedA == false &&
+            $scope.checkedObj.checkedB == false &&
+            $scope.checkedObj.checkedC == false) {
+              $scope.enableNext = false;
+          } else {
+            $scope.enableNext = true;
+          }
+
+          if ($scope.lastChoiceOccurence == 1) {
+            $scope.lastChoice = answer;
+            $scope.lastChoiceOccurence++;
+          }
+          else {
+            $scope.lastChoice = null;
+            $scope.lastChoiceOccurence = 1;
+          }
         }
+
+        var checkForEnd = function() {
+          sendFromQuizQuestions
+            .CheckForEndOfEvent()
+            .then(function successCallback(response) {
+                console.log(response);
+              }, function errorCallback(response) {
+                console.log('smthn failed miserably');
+            });
+        }
+
+        setInterval(checkForEnd, 10000);
     });
