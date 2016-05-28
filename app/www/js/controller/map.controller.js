@@ -2,7 +2,7 @@
 (function () {
   angular.module('starter.controllers')
 
-  .controller('MapCtrl', function($scope, $ionicLoading, infoWindowContent) {
+  .controller('MapCtrl', function($scope, $state, $ionicLoading, infoWindowContent) {
     var infoWindow;
 
     $scope.mapCreated = function(map) {
@@ -84,6 +84,7 @@
     }
 
     function joinEvent() {
+      $state.go('awaitEvent');
       console.log('event joined');
     }
 
