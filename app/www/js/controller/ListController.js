@@ -11,19 +11,19 @@ angular.module('starter.controllers')
             {name: 'Programming', id: '2'},
             {name: 'Gaming', id: '3'}
         ];
-
+        
         $scope.chooseTeam = function (id) {
 
             teamsService.joinTeam(id)
-            .then(function successCallback(response) {
-                $rootScope.teamName = response.data.Team.TeamName;
-                $rootScope.userPictureSource = 'http://gotagapi.azurewebsites.net' + response.data.AvatarPath;
-                $rootScope.teamPictureSource = 'http://gotagapi.azurewebsites.net' + response.data.Team.TeamPicturePath;
-                console.log($rootScope.team);
-                $state.go('map');
-            }, function errorCallback(response) {
-                console.log('smthn failed miserably');
-            });
+                .then(function successCallback(response) {
+                    $rootScope.teamName = response.data.Team.TeamName;
+                    $rootScope.userPictureSource = 'http://gotagapi.azurewebsites.net' + response.data.AvatarPath;
+                    $rootScope.teamPictureSource = 'http://gotagapi.azurewebsites.net' + response.data.Team.TeamPicturePath;
+                    console.log($rootScope.team);
+                    $state.go('map');
+                }, function errorCallback(response) {
+                    console.log('smthn failed miserably');
+                });
 
         }
     });

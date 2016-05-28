@@ -44,6 +44,7 @@ map {
     top: 60px !important;
 
 }
+
 .item {
     box-shadow: 1px 2px 5px rgba(193, 193, 193, 0.37);
 }
@@ -86,6 +87,7 @@ map {
 
 .logo-container img {
   width: 100%;
+  max-width: 600px;
 }
 
 .input-label {
@@ -94,4 +96,9 @@ map {
 
 .item-md-label input {
   background: initial !important;
+}
+
+.answer {
+  position: relative !important;
+  bottom: 0 !important;
 }
