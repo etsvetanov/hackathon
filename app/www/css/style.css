@@ -11,8 +11,8 @@ map {
 
 .nearest-event {
   position: absolute !important;
-  bottom: 10px;
-  left: 10px}
+  bottom: 4px;
+  left: 5px}
 .pull-right {
     margin-left: auto;
     display: block;
@@ -47,7 +47,7 @@ map {
 }
 
 .item .item-content {
-    margin: auto;
+    margin: auto;3
     padding-bottom: 27px;
     padding-top: 28px;
 

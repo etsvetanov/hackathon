@@ -7,6 +7,7 @@ angular.module('starter.directives', [])
       onCreate: '&',
       onMyClick: '&',
       markedLocations: '=',
+      markedLocationClick: '&'
     },
     link: function ($scope, $element, $attr) {
       function initialize() {
@@ -46,11 +47,6 @@ angular.module('starter.directives', [])
         setTimeout(function(){ map.setZoom(currentZoom) }, 80);
         }
       }
-
-      function alertCircle(circle) {
-       console.log("clicked on circle with radius:" + circle.radius);
-       $state.go('quizQuestion');
-      }
       
       //mistake island
       //44.4751188, -67.5354019
@@ -59,7 +55,7 @@ angular.module('starter.directives', [])
           var locs = $scope.markedLocations;
           for(loc in locs){
             var circle = drawing.drawCircle($scope.map, locs[loc].latitude, locs[loc].longitude, 40);
-            drawing.addCircleOnClick(circle, alertCircle);
+            drawing.addCircleOnClick(circle, $scope.markedLocationClick);
           }
         }
       }

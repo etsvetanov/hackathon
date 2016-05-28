@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('starter')
-        .config(function($stateProvider, $httpProvider) {
+        .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             $stateProvider
                 .state('main', {
                     url: '/',
@@ -15,8 +15,8 @@
                     resolve: {
                         infoWindowContent: function ($http) {
                             return $http.get('/templates/infoWindow.html')
-                                        .then(function () {
-                                            console.log(arguments);
+                                        .then(function (res) {
+                                            return res.data;
                                         });
                         }
                     }
@@ -36,6 +36,8 @@
                   templateUrl: 'templates/quiz-question.html'
                 });
 
+            $urlRouterProvider.otherwise('/');
+            
             $httpProvider.interceptors.push('httpErrorResponseRetry');
         });
 }());
