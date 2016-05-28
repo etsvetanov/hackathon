@@ -2,7 +2,6 @@
 angular.module('starter.controllers')
 .factory('sendNothing', function($state) {
   var self = this,
-      thingsThatareNotExposed = {},
       service = {};
 
   service.getData = getData;

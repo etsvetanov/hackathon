@@ -3,7 +3,6 @@ angular.module('starter.controllers')
 .factory('sendFromLogin', function($http) {
   var loginUrl = 'http://gotag.azurewebsites.net/api/createUniqueUser';
   var self = this,
-      thingsThatareNotExposed = {},
       service = {};
 
   service.getData = getData;
