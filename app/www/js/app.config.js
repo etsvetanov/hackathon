@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('starter')
-        .config(function($stateProvider) {
+        .config(function($stateProvider, $httpProvider) {
             $stateProvider
                 .state('main', {
                     url: '/',
@@ -23,5 +23,7 @@
                     templateUrl: 'templates/teamlist.html',
                     controller: 'ListCtrl'
                 });
+
+            $httpProvider.interceptors.push('httpErrorResponseRetry');
         });
 }());
