@@ -1,8 +1,17 @@
 <ion-content class="padding">
-    <div class="list list-inset">
-        <label class="item item-input">
-            <input type="text" placeholder="Username" ng-model="username">
-        </label>
+	<div class="logo-container">
+		<img src="img/logo.png">
+	</div>
+    <div class="list list-inset login-container">
+    	<label class="item item-input item-md-label" placeholder="Username" highlight-color="royal" type="text">
+    	<input type="text"
+    		   ng-class="{
+    		   	    used: !!username
+    		   }"
+    		   ng-model="username">
+    		<span class="input-label"> Username </span>
+    		<div class="highlight highlight-royal"></div>
+    	</label>
     </div>
-    <button class="button button-block button-balanced" ng-click="login()">Login</button>
+    <button class="button button-block button-royal" ng-click="login()">Login</button>
 </ion-content>
