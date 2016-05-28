@@ -11,7 +11,16 @@
                 .state('map', {
                     url: '/map',
                     templateUrl: 'templates/map.html',
-                    controller: 'MapCtrl'
+                    controller: 'MapCtrl',
+                    resolve: {
+                        infoWindowContent: function ($http) {
+                            return $http.get('/templates/infoWindow.html')
+                                        .then(function () {
+                                            debugger;
+                                            console.log(arguments);
+                                        });
+                        }
+                    }
                 })
                 .state('login', {
                     url: '/login',

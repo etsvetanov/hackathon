@@ -37,7 +37,7 @@ angular.module('starter.directives', [])
     },
     controller: function($scope, drawing) {
 
-    function animateMapZoomTo(map, targetZoom) {
+      function animateMapZoomTo(map, targetZoom) {
         var currentZoom = map.getZoom();
         if (currentZoom != targetZoom) {
             google.maps.event.addListenerOnce(map, 'zoom_changed', function (event) {
@@ -48,8 +48,9 @@ angular.module('starter.directives', [])
       }
 
       function alertCircle(circle) { 
-       console.log("clicked on circle with radius:" + circle.radius);
+        console.log("clicked on circle with radius:" + circle.radius);
       }
+      //mistake island
       //44.4751188, -67.5354019
       $scope.ready = function() {
         if($scope.markedLocations){
