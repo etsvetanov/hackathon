@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoTag.Assets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,34 +16,34 @@ namespace GoTag.Models
 
         public static List<TeamModel> GenerateTeams()
         {
-            string movieAvatarRelativePath = @"\Assets\Pictures\TeamAvatar\MoviesLogo.png";
-            TeamModel movieTeam = new TeamModel();
-            movieTeam.ID = 1;
-            movieTeam.TeamCategoryId = (int)Enums.TeamCategoryEnum.Movies;
-            movieTeam.TeamCategoryName = Enums.TeamCategoryEnum.Movies.ToString();
-            movieTeam.TeamName = "Stormtroopers pee straight";
-            movieTeam.TeamPicturePath = HttpContext.Current.Server.MapPath(movieAvatarRelativePath);
+            string team1AvatarRelativePath = StaticResournces.Team1Logo;
+            TeamModel Team1 = new TeamModel();
+            Team1.ID = StaticResournces.Team1ID;
+            Team1.TeamCategoryId = (int)Enums.TeamCategoryEnum.Movies;
+            Team1.TeamCategoryName = Enums.TeamCategoryEnum.Movies.ToString();
+            Team1.TeamName = StaticResournces.Team1Name;
+            Team1.TeamPicturePath = team1AvatarRelativePath;
 
-            string programmingAvatarRelativePath = @"\Assets\Pictures\TeamAvatar\ProgrammingLogo.jpg";
-            TeamModel programmingTeam = new TeamModel();
-            programmingTeam.ID = 1;
-            programmingTeam.TeamCategoryId = (int)Enums.TeamCategoryEnum.Movies;
-            programmingTeam.TeamCategoryName = Enums.TeamCategoryEnum.Movies.ToString();
-            programmingTeam.TeamName = "Stormtroopers pee straight";
-            programmingTeam.TeamPicturePath = HttpContext.Current.Server.MapPath(programmingAvatarRelativePath);
+            string team2AvatarRelativePath = StaticResournces.Team2Logo;
+            TeamModel Team2 = new TeamModel();
+            Team2.ID = StaticResournces.Team2ID;
+            Team2.TeamCategoryId = (int)Enums.TeamCategoryEnum.Programming;
+            Team2.TeamCategoryName = Enums.TeamCategoryEnum.Programming.ToString();
+            Team2.TeamName = StaticResournces.Team2Name;
+            Team2.TeamPicturePath = team2AvatarRelativePath;
 
-            string gamingAvatarRelativePath = @"\Assets\Pictures\TeamAvatar\GamingLogo.png";
-            TeamModel gamingTeam = new TeamModel();
-            gamingTeam.ID = 1;
-            gamingTeam.TeamCategoryId = (int)Enums.TeamCategoryEnum.Movies;
-            gamingTeam.TeamCategoryName = Enums.TeamCategoryEnum.Movies.ToString();
-            gamingTeam.TeamName = "Stormtroopers pee straight";
-            gamingTeam.TeamPicturePath = HttpContext.Current.Server.MapPath(gamingAvatarRelativePath);
+            string team3AvatarRelativePath = StaticResournces.Team3Logo;
+            TeamModel Team3 = new TeamModel();
+            Team3.ID = StaticResournces.Team3ID;
+            Team3.TeamCategoryId = (int)Enums.TeamCategoryEnum.Gaming;
+            Team3.TeamCategoryName = Enums.TeamCategoryEnum.Gaming.ToString();
+            Team3.TeamName = StaticResournces.Team3Name;
+            Team3.TeamPicturePath = team3AvatarRelativePath;
 
             List<TeamModel> allTeams = new List<TeamModel>();
-            allTeams.Add(movieTeam);
-            allTeams.Add(programmingTeam);
-            allTeams.Add(gamingTeam);
+            allTeams.Add(Team1);
+            allTeams.Add(Team2);
+            allTeams.Add(Team3);
 
             return allTeams;
         }

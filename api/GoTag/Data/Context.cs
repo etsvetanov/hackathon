@@ -1,4 +1,5 @@
-﻿using GoTag.Models;
+﻿using GoTag.Assets;
+using GoTag.Models;
 using GoTag.Utility;
 using System;
 using System.Collections.Generic;
@@ -60,28 +61,65 @@ namespace GoTag.Data
 
 
 
-        private static List<string> _movieUserAvatarPaths;
-        public static List<string> MovieUserAvatarPaths
+        private static List<string> _team1UserAvatarPaths;
+        public static List<string> Team1UserAvatarPaths
         {
             get
             {
-                if (_movieUserAvatarPaths == null || _movieUserAvatarPaths.Any())
+                if (_team1UserAvatarPaths == null || !_team1UserAvatarPaths.Any())
                 {
-                    _movieUserAvatarPaths = FileService.GetFilePathsForFolder(HttpContext.Current.Server.MapPath(@"\Assets\Pictures\UserAvatarPictures\MovieAvatars\"));
+                    _team1UserAvatarPaths = FileService.GetFilePathsForFolder(HttpContext.Current.Server.MapPath(StaticResournces.Team1UserAvatarLogoPaths));
                 }
-                return _movieUserAvatarPaths;
+                return _team1UserAvatarPaths;
             }
         }
-
-        public static string PopMovieAvatar()
+        public static string PopAvatarForTeam1()
         {
-            string popedAvatarPath = MovieUserAvatarPaths.FirstOrDefault();
-            _movieUserAvatarPaths.Remove(popedAvatarPath);
+            string popedAvatarPath = Team1UserAvatarPaths.FirstOrDefault();
+            _team1UserAvatarPaths.Remove(popedAvatarPath);
 
             return popedAvatarPath;
         }
-        
 
+        private static List<string> _team2UserAvatarPaths;
+        public static List<string> Team2UserAvatarPaths
+        {
+            get
+            {
+                if (_team2UserAvatarPaths == null || !_team2UserAvatarPaths.Any())
+                {
+                    _team2UserAvatarPaths = FileService.GetFilePathsForFolder(HttpContext.Current.Server.MapPath(StaticResournces.Team3UserAvatarLogoPaths));
+                }
+                return _team2UserAvatarPaths;
+            }
+        }
+        public static string PopAvatarForTeam2()
+        {
+            string popedAvatarPath = Team2UserAvatarPaths.FirstOrDefault();
+            _team2UserAvatarPaths.Remove(popedAvatarPath);
+
+            return popedAvatarPath;
+        }
+
+        private static List<string> _team3UserAvatarPaths;
+        public static List<string> Team3UserAvatarPaths
+        {
+            get
+            {
+                if (_team3UserAvatarPaths == null || !_team3UserAvatarPaths.Any())
+                {
+                    _team3UserAvatarPaths = FileService.GetFilePathsForFolder(HttpContext.Current.Server.MapPath(StaticResournces.Team2UserAvatarLogoPaths));
+                }
+                return _team3UserAvatarPaths;
+            }
+        }
+        public static string PopAvatarForTeam3()
+        {
+            string popedAvatarPath = Team3UserAvatarPaths.FirstOrDefault();
+            _team3UserAvatarPaths.Remove(popedAvatarPath);
+
+            return popedAvatarPath;
+        }
 
 
     }

@@ -58,7 +58,7 @@ namespace GoTag.Controllers
         [Route("api/selectTeam")]
         public HttpResponseMessage SelectTeam(int teamId)
         {
-            //extract guid from cookie here
+            //todo extract guid from cookie here
 
             Guid userGuid = DBContext.UsersList.Select(s => s.Guid).FirstOrDefault();
             UserModel updatedUser = UserModel.SelectTeamForUser(userGuid, teamId);
