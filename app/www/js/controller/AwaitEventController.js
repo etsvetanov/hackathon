@@ -18,7 +18,7 @@ angular.module('starter.controllers')
             console.log("seconds left: " + secondsLeft);
         };
 
-        goTagSignalRHub.client.startEvent = function () {
+        goTagSignalRHub.client.startEvent = function (durationInSeconds) {
             $state.go("quizQuestion");
             console.log("Event has started");
         };
