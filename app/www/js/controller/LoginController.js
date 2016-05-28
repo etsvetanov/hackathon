@@ -3,6 +3,7 @@ angular.module('starter.controllers')
 .controller('LoginCtrl', function($scope, $q, $timeout, sendFromLogin, $rootScope, $state) {
   $scope.username = "";
   $rootScope.username;
+  $rootScope.arrow = true;
   $scope.login = function(name) {
     sendFromLogin.Login(name)
       .then(function successCallback(response) {
