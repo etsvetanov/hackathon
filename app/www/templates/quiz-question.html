@@ -1,23 +1,21 @@
 <ion-content class="padding">
     <div class="list card">
 
-        <div class="item item-avatar">
-            <img src="userImg">
-            <h2>Username</h2>
-            <p>November 05, 1955</p>
-        </div>
+        <!--<div class="item item-avatar">-->
+            <!--<img src="userImg">-->
+            <!--<h2> {{ username }}</h2>-->
+            <!--<p>November 05, 1955</p>-->
+        <!--</div>-->
 
         <div class="item item-body">
             <p>
-                Question description. Question description.Question description.Question description.Question
-                description.Question description.
+                Question description.
             </p>
             <p>
                 <ion-list class="list-inset">
-                    <ion-checkbox class="item" ng-model="filter.blue">Answer</ion-checkbox>
-                    <ion-checkbox class="item" ng-model="filter.blue">Answer</ion-checkbox>
-                    <ion-checkbox class="item" ng-model="filter.blue">Answer</ion-checkbox>
-                    <ion-checkbox class="item" ng-model="filter.blue">Answer</ion-checkbox>
+                    <ion-radio ng-model="choice" class="item" ng-value="'A'">Answer</ion-radio>
+                    <ion-radio ng-model="choice" class="item" ng-value="'B'">Answer</ion-radio>
+                    <ion-radio ng-model="choice" class="item" ng-value="'C'">Answer</ion-radio>
                 </ion-list>
                 <button class="button button-block button-balanced" ng-click="next()">Next Question</button>
             </p>
