@@ -41,16 +41,16 @@
         <table id="leaderBoard" class="table">
             <thead>Top 15 players</thead>
             <tr>
-                <td></td>
-                <td>Username</td>
-                <td>Team</td>
-                <td>Score</td>
+                <th></th>
+                <th>Username</th>
+                <th>Team</th>
+                <th>Score</th>
             </tr>
-            <tr class="template hidden" data-guid="Guid">
-                <td class="avatar" data-prop="AvatarPath"><img src="" /></td>
-                <td class="username" data-prop="Username"></td>
-                <td class="team" data-prop="Teamname"></td>
-                <td class="score" data-prop="Score"></td>
+            <tr class="template js-row hidden" data-guid="Guid">
+                <td class="avatar" data-prop="AvatarPath" valign="middle"><img src="" /></td>
+                <td class="username" data-prop="Username" valign="middle"></td>
+                <td class="team" data-prop="Teamname" valign="middle"></td>
+                <td class="score" data-prop="Score" valign="middle"></td>
             </tr>
         </table>
     </div>
@@ -75,7 +75,8 @@
             // Declare a proxy to reference the hub.
             var hub = $.connection.goTagSignalRHub;
 
-            var $elementsToShow = $('[data-toggle=started]').hide();
+            var $elementsToShow = $('[data-toggle=started]');
+
             $('#countDownBaby').hide();
 
             // Create a function that the hub can call to broadcast messages.
@@ -98,7 +99,6 @@
                 $('[data-toggle=notStarted]').hide();
 
                 $elementsToShow.show();
-
             }
 
             $.connection.hub.start().done(function () {

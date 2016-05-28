@@ -84,11 +84,14 @@ map {
 
 .login-container {
   border-left: none !important;
-  text-align: center;
 }
 
 .login-container input {
   color: black !important;
+}
+
+.logo-container {
+  text-align: center;
 }
 
 .logo-container img {

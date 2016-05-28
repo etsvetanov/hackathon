@@ -22,7 +22,20 @@
             //
             appendNewRow(userData);
         }
+
+        self.table
+            .find('tr.js-row')
+            .sort(compareScore)
+            .detach()
+            .appendTo(self.table);
     };
+
+    function compareScore(a, b) {
+        var valA = $(a).find('[data-prop="Score"]').text(),
+            valB = $(b).find('[data-prop="Score"]').text();
+
+        return parseInt(valA) < parseInt(valB);
+    }
 
     function updateTdsInRow(row, userData) {
         for (var prop in userData) {
