@@ -10,7 +10,11 @@
     </div>
     <div class="col-xs-12" data-toggle="notStarted">
         <button id="startEvent" type="button" class="btn btn-success">Start Event</button>
-        <button id="stopEvent" type="button" class="btn btn-danger">Stop Event</button>
+        <button id="stopEvent" type="button" class="btn btn-warning">Stop Event</button>
+        <button id="stopEvent" type="button" class="btn btn-danger" 
+                onclick="return confirm('Are you sure you want to hard reset this event?') && hardRestartEvent()">
+        Restart Event</button>
+
     </div>
     <div class="col-xs-12" data-toggle="notStarted">
         <h2 id="eventStartsIn"></h2>
@@ -72,6 +76,22 @@
     <script src="~/Scripts/PageScripts/leaderBoard.js"></script>
 
     <script type="text/javascript">
+
+        function hardRestartEvent(){
+            $.ajax({
+                type: "POST",
+                url: "/api/hardRestartEvent",
+                success: function (result) {
+                    console.log("succesfully restarted event!");
+                },
+                error: function (result) {
+                    console.log("event restart didnt work!");
+                }
+            });
+
+            return true;
+        };
+
         $(document).ready(function () {
             LeaderBoard.init("leaderBoard");
           

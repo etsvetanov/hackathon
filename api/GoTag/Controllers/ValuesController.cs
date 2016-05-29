@@ -164,9 +164,26 @@ namespace GoTag.Controllers
         {
             try
             {
-                DBContext.UsersList.Clear();
                 _isEventStopped = false;
 
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
+
+        }
+
+
+        [HttpPost]
+        [Route("api/hardRestartEvent")]
+        public HttpResponseMessage HardRestartEvent()
+        {
+            try
+            {
+                _isEventStopped = false;
+                DBContext.UsersList.Clear();
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch
