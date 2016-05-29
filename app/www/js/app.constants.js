@@ -13,13 +13,6 @@
                     "Qt": "What does John Snow know?"
                 },
                 {
-                    "Qa": "http://localhost",
-                    "Qb": "80",
-                    "Qc": "asdasd",
-                    "Qr": "Qb",
-                    "Qt": "Text looooooooong"
-                },
-                {
                     "Qa": "Ser Loras Tyrell",
                     "Qb": "Ser Jaime Lannister",
                     "Qc": "Sandor Clegane",
@@ -303,11 +296,10 @@
                     "Qa": "Kim Jon Linux",
                     "Qb": "Red Star OS",
                     "Qc": "North Star OS",
-                    "Qr": "",
+                    "Qr": "Qb",
                     "Qt": "What is the name of the official Linux OS of North Korea",
                     "Category": ""
                 },
-                {"Qa": "", "Qb": "", "Qc": "", "Qr": "", "Qt": "", "Category": ""},
                 {
                     "Qa": "Mario",
                     "Qb": "Maria",
@@ -322,14 +314,6 @@
                     "Qc": "Neither",
                     "Qr": "Qc",
                     "Qt": "What have you learned from CS:GO?",
-                    "Category": ""
-                },
-                {
-                    "Qa": "",
-                    "Qb": "",
-                    "Qc": "Revolt",
-                    "Qr": "Qc",
-                    "Qt": "Which of the following is name of a racing game?",
                     "Category": ""
                 }
             ]);
