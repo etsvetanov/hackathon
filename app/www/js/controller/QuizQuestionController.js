@@ -95,6 +95,7 @@ angular.module('starter.controllers')
                 .CheckForEndOfEvent()
                 .then(function successCallback(response) {
                     if (JSON.parse(response.data))
+                        clearInterval(setIntervalFunc);
                         $state.go('resultPage');
                 }, function errorCallback(response) {
                     console.log('smthn failed miserably');
@@ -102,5 +103,5 @@ angular.module('starter.controllers')
 
         }
 
-        setInterval(checkForEnd, 10000);
+        var setIntervalFunc = setInterval(checkForEnd, 10000);
     });
