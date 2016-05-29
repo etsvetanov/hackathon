@@ -34,7 +34,7 @@ angular.module('starter.controllers')
         shuffle($scope.questions);
         $scope.currentQuestionIndex = 0;
         $scope.currentQuestion = $scope.questions[$scope.currentQuestionIndex];
-        $scope.$scope.originalQuestions.forEach(function (el, i) {
+        $scope.originalQuestions.forEach(function (el, i) {
             el.id = i;
         })
         $scope.getNextQuestion = function () {
