@@ -24,6 +24,11 @@ textarea {
     border: none;
 }
 
+.leaderboard-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
 #leaderBoard td {
     vertical-align: middle !important;
 }
@@ -36,4 +41,8 @@ textarea {
 .panel-primary > .panel-heading {
     background-color: #9D72E8 !important;
     border-color: #9D72E8 !important;
+}
+
+.team-progression {
+    border-bottom: 1px black solid;
 }

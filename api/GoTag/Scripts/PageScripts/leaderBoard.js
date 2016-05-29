@@ -41,7 +41,7 @@
         for (var prop in userData) {
             var td = row.find('[data-prop="' + prop + '"]');
             if (prop != "AvatarPath") {
-            td.text(userData[prop]);
+                td.text(userData[prop]);
             }
             else {
                 var img = td.find("img");
