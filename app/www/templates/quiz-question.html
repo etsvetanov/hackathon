@@ -4,8 +4,8 @@
     </div>
     <div class="list">
         <ion-checkbox ng-value="'Qa'" ng-checked="checked == 'Qa'" ng-click="prepareAnswer($event, 'Qa')" ng-disabled="disabledAll" my-ion-click> {{ currentQuestion.Qa }} </ion-checkbox>
-        <ion-checkbox ng-value="'Qb'" ng-checked="checked == 'Qb'" ng-click="prepareAnswer($event, 'Qb')" ng-disabled="disabledAll"> {{ currentQuestion.Qb }} </ion-checkbox>
-        <ion-checkbox ng-value="'Qc'" ng-checked="checked == 'Qc'" ng-click="prepareAnswer($event, 'Qc')" ng-disabled="disabledAll"> {{ currentQuestion.Qc }} </ion-checkbox>
+        <ion-checkbox ng-value="'Qb'" ng-checked="checked == 'Qb'" ng-click="prepareAnswer($event, 'Qb')" ng-disabled="disabledAll" my-ion-click> {{ currentQuestion.Qb }} </ion-checkbox>
+        <ion-checkbox ng-value="'Qc'" ng-checked="checked == 'Qc'" ng-click="prepareAnswer($event, 'Qc')" ng-disabled="disabledAll" my-ion-click> {{ currentQuestion.Qc }} </ion-checkbox>
     </div>
     <button class="button button-block button-royal" ng-disabled="!enableNext" ng-click="getNextQuestion()">Answer</button>
 </ion-content>

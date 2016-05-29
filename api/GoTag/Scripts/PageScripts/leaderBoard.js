@@ -41,7 +41,9 @@
 
     function updateBarData() {
         var teamData = _(self.table.find('[data-team-id]')).chain()
+            //group by team id
             .groupBy(function (e) { return $(e).attr('data-team-id'); })
+            // calculate team scores return array
             .map(function (teamScores, teamName) {
                 return {
                     name: teamName,
@@ -62,8 +64,6 @@
                 .find('.team-progression-fill')
                 .css({width: (team.score/bestTeam.score*100) + '%'});
         });
-
-        debugger;
     }
 
     function resetBarValues() {

@@ -94,7 +94,8 @@ angular.module('starter.controllers')
           sendFromQuizQuestions
             .CheckForEndOfEvent()
             .then(function successCallback(response) {
-                console.log(response);
+                if(response.data)
+                    $state.go('resultPage');
               }, function errorCallback(response) {
                 console.log('smthn failed miserably');
             });

@@ -119,12 +119,10 @@
 
             var $elementsToShow = $('[data-toggle=started]');
 
-            $('#countDownBaby').hide();
-
             // Create a function that the hub can call to broadcast messages.
             hub.client.newCorrectAnswer = function (userData) {
                 var user = JSON.parse(userData);
-                LeaderBoard.addOrUpdateUserScore(userData);
+                LeaderBoard.addOrUpdateUserScore(user);
             };
 
             hub.client.eventStartCountDown = function () {
@@ -137,8 +135,6 @@
 
             hub.client.startEvent = function (durationInSeconds) {
                 $elementsToShow = $('[data-toggle=started]');
-
-                $('[data-toggle=notStarted]').hide();
 
                 $elementsToShow.show();
             }
