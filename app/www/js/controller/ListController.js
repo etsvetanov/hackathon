@@ -11,6 +11,8 @@ angular.module('starter.controllers')
             {name: '.NOT', id: '2', category: 'Programming', logoPath: 'http://gotagapi.azurewebsites.net/Assets/Pictures/TeamAvatar/ProgrammingLogo.jpg'},
             {name: 'My wife for Aiur', id: '3', category: 'Gaming', logoPath: 'http://gotagapi.azurewebsites.net/Assets/Pictures/TeamAvatar/GamingLogo.png'}
         ];
+
+        //$rootScope.teamPics = $scope.items;
         
         $scope.chooseTeam = function (id) {
 

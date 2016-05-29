@@ -40,6 +40,19 @@
                     url: '/await-event',
                     templateUrl: 'templates/await-event.html',
                     controller: 'AwaitEventCtrl'
+                })
+                .state('resultPage', {
+                    url: '/resultPage',
+                    templateUrl: 'templates/map.html',
+                    controller: 'ResultCtrl',
+                    resolve: {
+                        infoWindowContent: function ($http) {
+                            return $http.get('/templates/infoWindow.html')
+                                        .then(function (res) {
+                                            return res.data;
+                                        });
+                        }
+                    }
                 });
 
             $urlRouterProvider.otherwise('/');
