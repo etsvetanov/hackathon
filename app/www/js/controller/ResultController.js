@@ -29,7 +29,7 @@ angular.module('starter.controllers')
                 .then(function successCallback(response) {
                     if(JSON.parse(response.data)=="true") {
                         getResult();
-                        clearInterval(setIntervalFunc);
+                        //clearInterval(setIntervalFunc);
                     }
                     console.log(response);
                   }, function errorCallback(response) {
