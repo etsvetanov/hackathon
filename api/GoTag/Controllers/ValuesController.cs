@@ -164,6 +164,7 @@ namespace GoTag.Controllers
         {
             try
             {
+                DBContext.UsersList.Clear();
                 _isEventStopped = false;
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
@@ -209,6 +210,7 @@ namespace GoTag.Controllers
                 return response;
             }
         }
+
         private void CalculateAndSetWinner(TeamResultsDTO teamResultsDto)
         {
             if (teamResultsDto.Team1score >= teamResultsDto.Team2score
