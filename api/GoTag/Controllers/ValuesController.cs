@@ -56,11 +56,6 @@ namespace GoTag.Controllers
             {
                 UserModel newUser = UserModel.CreateUserByUserName(requestedUsername);
 
-                HttpCookie userIdentityCookie = new HttpCookie("UserIdentityCookie");
-                userIdentityCookie.Expires = DateTime.Now.AddDays(1);
-                userIdentityCookie.Value = newUser.Guid.ToString();
-                HttpContext.Current.Response.Cookies.Add(userIdentityCookie);
-
                 string newUserJson = JsonConvert.SerializeObject(newUser);
                 var response = Request.CreateResponse(HttpStatusCode.OK);
                 response.Content = new StringContent(newUserJson, Encoding.UTF8, "application/json");
@@ -76,22 +71,12 @@ namespace GoTag.Controllers
 
         [HttpPost]
         [Route("api/selectTeam")]
-        public HttpResponseMessage SelectTeam(int teamId)
+        public HttpResponseMessage SelectTeam(int teamId, string guid)
         {
             try
             {
-                var userIdentityCookie = HttpContext.Current.Request.Cookies.Get("UserIdentityCookie");
 
-                Guid userGuid;
-                if (userIdentityCookie != null)
-                {
-                    userGuid = Guid.Parse(userIdentityCookie.Value);
-                }
-                else
-                {
-                    //todo are we sure this is the logic we want to execute
-                    userGuid = DBContext.UsersList.Select(s => s.Guid).FirstOrDefault();
-                }
+                Guid userGuid = Guid.Parse(guid);
 
                 UserModel updatedUser = UserModel.SelectTeamForUser(userGuid, teamId);
 
@@ -112,24 +97,13 @@ namespace GoTag.Controllers
 
         [HttpPost]
         [Route("api/incrementUserScore")]
-        public HttpResponseMessage AddCorrectAnswer()
+        public HttpResponseMessage AddCorrectAnswer(string guid)
         {
             try
             {
                 if (!_isEventStopped)
                 {
-                    var userIdentityCookie = HttpContext.Current.Request.Cookies.Get("UserIdentityCookie");
-
-                    Guid userGuid;
-                    if (userIdentityCookie != null)
-                    {
-                        userGuid = Guid.Parse(userIdentityCookie.Value);
-                    }
-                    else
-                    {
-                        //todo are we sure this is the logic we want to execute
-                        userGuid = DBContext.UsersList.Select(s => s.Guid).FirstOrDefault();
-                    }
+                    Guid userGuid = Guid.Parse(guid);
 
                     UserModel userFromDB = UserModel.IncrementUserScoreByGuid(userGuid);
                     var userDtoJson = MapUserToUserLeaderBoardDTO(userFromDB);
@@ -239,7 +213,7 @@ namespace GoTag.Controllers
         {
             if (teamResultsDto.Team1score >= teamResultsDto.Team2score
                 && teamResultsDto.Team1score >= teamResultsDto.Team3score) { teamResultsDto.Winner = 1; }
-            else if(teamResultsDto.Team2score >= teamResultsDto.Team1score
+            else if (teamResultsDto.Team2score >= teamResultsDto.Team1score
                 && teamResultsDto.Team2score >= teamResultsDto.Team3score) { teamResultsDto.Winner = 2; }
             else { teamResultsDto.Winner = 3; }
         }

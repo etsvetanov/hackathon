@@ -99,6 +99,7 @@ angular.module('starter.controllers')
                 }, function errorCallback(response) {
                     console.log('smthn failed miserably');
                 });
+
         }
 
         setInterval(checkForEnd, 10000);

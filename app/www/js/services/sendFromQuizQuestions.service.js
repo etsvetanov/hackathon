@@ -13,7 +13,8 @@ angular.module('starter.controllers')
   function submitAnswer(answer){
     return $http({
       method: 'POST',
-      url: submitAnswerUrl
+      url: submitAnswerUrl,
+      params: { guid : sessionStorage.getItem('userguid') }
     });
   }
 

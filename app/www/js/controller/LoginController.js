@@ -8,6 +8,7 @@ angular.module('starter.controllers')
     sendFromLogin.Login(name)
       .then(function successCallback(response) {
           $rootScope.username = response.data.Username;
+          sessionStorage.setItem('userguid', response.data.Guid);
           console.log($rootScope.username);
           $state.go('teams');
         }, function errorCallback(response) {
