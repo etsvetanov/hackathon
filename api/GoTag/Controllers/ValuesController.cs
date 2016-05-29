@@ -272,7 +272,7 @@ namespace GoTag.Controllers
                 Guid = userFromDB.Guid.ToString(),
                 AvatarPath = userFromDB.AvatarPath,
                 Username = userFromDB.Username,
-                Teamname = userFromDB.Team.TeamName,
+                TeamId = userFromDB.Team.ID,
                 Score = userFromDB.Score
             });
         }

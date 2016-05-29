@@ -12,7 +12,7 @@ namespace GoTag.Models
         public string Guid { get; set; }
         public string AvatarPath { get; set; }
         public string Username { get; set; }
-        public string Teamname { get; set; }
+        public int TeamId { get; set; }
         public int Score { get; set; }
     }
 }
