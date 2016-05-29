@@ -94,7 +94,7 @@ angular.module('starter.controllers')
             sendFromQuizQuestions
                 .CheckForEndOfEvent()
                 .then(function successCallback(response) {
-                    if (JSON.parse(response.data)=="true"){
+                    if (response.data=="true"){
                         //clearInterval(setIntervalFunc);
                         $state.go('resultPage');
                     }
