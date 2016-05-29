@@ -28,6 +28,8 @@
             .sort(compareScore)
             .detach()
             .appendTo(self.table);
+
+        updateBarData();
     };
 
     function compareScore(a, b) {
@@ -37,9 +39,45 @@
         return parseInt(valA) < parseInt(valB);
     }
 
+    function updateBarData() {
+        var teamData = _(self.table.find('[data-team-id]')).chain()
+            .groupBy(function (e) { return $(e).attr('data-team-id'); })
+            .map(function (teamScores, teamName) {
+                return {
+                    name: teamName,
+                    score: teamScores.reduce(function (a, b) {
+                        var valB = parseInt($(b).text());
+                        return a + valB;
+                    }, 0)
+                };
+            })
+            .value();
+
+        resetBarValues();
+
+        var bestTeam = _.maxBy(teamData, 'score');
+
+        teamData.forEach(function (team) {
+            $('.js-team' + team.name)
+                .find('.team-progression-fill')
+                .css({width: (team.score/bestTeam.score*100) + '%'});
+        });
+
+        debugger;
+    }
+
+    function resetBarValues() {
+        $('[class*=js-team]')
+            .find('.team-progression-fill')
+            .css({ width: '0%' });
+    }
+
     function updateTdsInRow(row, userData) {
         for (var prop in userData) {
             var td = row.find('[data-prop="' + prop + '"]');
+            if (prop == 'Score') {
+                td.attr('data-team-id', userData.TeamId);
+            }
             if (prop != "AvatarPath") {
                 td.text(userData[prop]);
             }
@@ -54,8 +92,6 @@
             self = this;
             self.table = $("#" + tableId);
         },
-        addOrUpdateUserScore(userData) {
-            addOrUpdateRow(userData);
-        },
+        addOrUpdateUserScore: addOrUpdateRow
     };
 }())
