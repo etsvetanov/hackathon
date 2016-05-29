@@ -27,9 +27,9 @@ angular.module('starter.controllers')
               sendFromQuizQuestions
                 .CheckForEndOfEvent()
                 .then(function successCallback(response) {
-                    if(JSON.parse(response.data)==true) {
+                    if(JSON.parse(response.data)=="true") {
                         getResult();
-                        checkForEnd = function() {};//so execution does nothing
+                        clearInterval(setIntervalFunc);
                     }
                     console.log(response);
                   }, function errorCallback(response) {
@@ -37,7 +37,7 @@ angular.module('starter.controllers')
                 });
             }
 
-        setInterval(checkForEnd, 10000);
+       var setIntervalFunc = setInterval(checkForEnd, 10000);
 
     var getResult = function() {
           sendFromQuizQuestions
