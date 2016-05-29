@@ -95,7 +95,7 @@ angular.module('starter.controllers')
                 .CheckForEndOfEvent()
                 .then(function successCallback(response) {
                     if (JSON.parse(response.data)=="true"){
-                        clearInterval(setIntervalFunc);
+                        //clearInterval(setIntervalFunc);
                         $state.go('resultPage');
                     }
                 }, function errorCallback(response) {
