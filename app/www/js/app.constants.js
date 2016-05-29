@@ -224,7 +224,7 @@
                     "Qa": "SoftServe",
                     "Qb": "Sap",
                     "Qc": "Sofiiska Banitsa",
-                    "Qr": "Qa",
+                    "Qr": "Qc",
                     "Qt": "Which of the following is not official partner for HackFMI7?",
                     "Category": "Programming"
                 },
